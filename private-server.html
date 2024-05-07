@@ -1,0 +1,834 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
+    
+    
+      
+        <title>Private Server - Arcaea Modding Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.66ac8b77.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#setting-up-your-own-arcaea-server" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Arcaea Modding Wiki" class="md-header__button md-logo" aria-label="Arcaea Modding Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arcaea Modding Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Private Server
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Arcaea Modding Wiki" class="md-nav__button md-logo" aria-label="Arcaea Modding Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Arcaea Modding Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Private Server
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="private-server.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Private Server
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#obtaining-content-bundle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Obtaining content bundle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patching-arcaea" class="md-nav__link">
+    <span class="md-ellipsis">
+      Patching Arcaea
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Patching Arcaea">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-binary-patches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Binary Patches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-patching-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual patching (Advanced)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-private-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up private server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up private server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proxy-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proxy setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server software
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-device-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      On device setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#playing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-for-notable-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes for notable issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#obtaining-content-bundle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Obtaining content bundle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patching-arcaea" class="md-nav__link">
+    <span class="md-ellipsis">
+      Patching Arcaea
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Patching Arcaea">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-binary-patches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Binary Patches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-patching-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual patching (Advanced)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-private-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up private server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up private server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proxy-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proxy setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server software
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-device-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      On device setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#playing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-for-notable-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes for notable issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="setting-up-your-own-arcaea-server">Setting up your own Arcaea server</h1>
+<div class="admonition note">
+<p class="admonition-title">Before starting</p>
+<p>Make sure to have a copy of Arcaea APK/IPA file ready. For IPA file, make sure its decrypted as otherwise you will run into issues.</p>
+</div>
+<h3 id="obtaining-content-bundle">Obtaining content bundle</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only for Arcaea 5.4.0 or newer and non-Chinese versions.</p>
+</div>
+<p>Starting from Arcaea 5.4.0, the game now uses content bundles to serve base game contents (characters &amp; songs) instead of bundling them in the APK/IPA file. </p>
+<p>To get them, install Arcaea from <a href="https://play.google.com/store/apps/details?id=moe.low.arc&amp;hl=en_US">Google Play Store</a> or <a href="https://apps.apple.com/us/app/arcaea/id1205999125">Apple App Store</a>, then open it let it finish downloading the content bundles and you are done!</p>
+<p>From here, steps to extract the contents of the bundle will differ depending on your operating system.</p>
+<ul>
+<li>
+<p>For Android, the content bundle is stored in <code>/data/data/moe.low.arc/files</code>. <strong>Root is required to access this directory.</strong></p>
+</li>
+<li>
+<p>For iOS, the content bundle is stored in <code>/var/mobile/Containers/Data/Application/&lt;Arcaea data container ID&gt;/Library/Application Support</code>. <strong>Filza is required to access this directory.</strong> Apps Manager or App Index (the latter is only available when jailbroken) is recommend for easier access.</p>
+</li>
+</ul>
+<p>Copy the <code>cb</code> folder and <code>dltemp</code> folder to your computer using SSH, ADB, AFC2 (jailbroken iOS only) or any methods that works for you.</p>
+<h3 id="patching-arcaea">Patching Arcaea</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you had already patched Arcaea, feel free to skip this section and proceed to <a href="#setting-up-private-server">Setting up private server</a>.</p>
+</div>
+<h4 id="using-binary-patches">Using Binary Patches</h4>
+<div class="admonition note">
+<p class="admonition-title">Before starting</p>
+<p>You will need a software that allows applying <code>.xdelta</code> binary patches. <a href="https://github.com/marco-calautti/DeltaPatcher">DeltaPatcher</a> is used in this guide.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Android will receive patches for newer versions slower than iOS. As an alternative, try <a href="#manual-patching-advanced">patching it</a> yourself or wait until Android patches is made.</p>
+</div>
+<p>Download the appropriate patch for your version:</p>
+<details class="note">
+<summary>iOS 5.6.1 (latest as of 5/7/2024)</summary>
+<p><a class="md-button" href="https://github.com/FishiaT/arcmodwiki/releases/download/patches/ios_5.6.1.xdelta">Download</a></p>
+</details>
+<details class="note">
+<summary>iOS 5.6.0</summary>
+<p><a class="md-button" href="https://github.com/FishiaT/arcmodwiki/releases/download/patches/ios_5.6.0.xdelta">Download</a></p>
+</details>
+<details class="note">
+<summary>Android 5.6.0</summary>
+<p><a class="md-button" href="https://github.com/FishiaT/arcmodwiki/releases/download/patches/android_5.6.0.xdelta">Download</a></p>
+</details>
+<details class="note">
+<summary>Android 5.6.0c</summary>
+<p><a class="md-button" href="https://github.com/FishiaT/arcmodwiki/releases/download/patches/android_5.6.0c.xdelta">Download</a></p>
+</details>
+<p>Now open DeltaPatcher, you will be presented with an interface like this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/3d449457-96f5-41b5-8c74-d66328d66418" /></p>
+<p>Select the appropriate <em>unmodified</em> executable, and the appropriate patch, then press <strong>Apply patch</strong>.</p>
+<p>After that, you are done!</p>
+<h4 id="manual-patching-advanced">Manual patching (Advanced)</h4>
+<div class="admonition note">
+<p class="admonition-title">Before starting</p>
+<p>This section requires basic knowledge of disassembling as well as Googling. You will also need a disassembler with support for ELF/Mach-O arm64 executables and pseudo-code decompilation for this section (e.g. IDA Pro, Ghidra, etc..) IDA Pro is used for this guide.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">About NOP</p>
+<p><code>1F 20 03 D5</code> is the hex equivalent of ARM64 <code>nop</code> instruction. Overwrite a hex address with it when you want to remove a specific instruction call.</p>
+</div>
+<p>Open the appropriate executable file for your operating system, <strong><em>and wait for the initial auto-analysis to complete (indicated by the status bar at the bottom showing Idle.)</em></strong> This process may take a while depending on your computer so please be patient.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/ef84f334-d2b6-48c4-9ec3-f84f896a0918" /></p>
+<p>After the initial auto-analysis, Press <strong>SHIFT + F12</strong> and wait for the string list to be generated (again, this may take a while.)</p>
+<p>In the <strong>Strings</strong> sub-window, press <strong>ALT + T</strong> and search for <code>cookieFiIe.txt</code> until you found exactly this.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/3203879e-367b-4bdc-a834-d24db72442a6" /></p>
+<p>Double-click it, and while highlighting this part, press <strong>X</strong> to perform xref (cross-reference.)</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/505ee7d4-6734-4391-92d3-90dd6aaae1ef" /></p>
+<p>Choose the <strong>second</strong> xref (for Android) or the only present xref (for iOS) and press <strong>ENTER</strong>.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/7ac1e9fd-74d3-4015-975b-8c6a036b6ff5" /></p>
+<p>Press <strong>F5</strong> or <strong>View &gt; Open subviews &gt; Generate pseudocode</strong> (this will not work if IDA is still analyzing the binary), wait for the decompilation to complete (may take a while) until you see something like this (may differ depending on version used but the general structure should be the same):</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/61a77285-a854-4a7b-8575-5c4cacc781a1" /></p>
+<p>Scroll to bottom until you see this part, then highlight it by clicking onto it (names may be different but the structure should remain the same.)</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/e048adf0-7a08-4b33-a6f7-9995cfd25f3f" /></p>
+<p>Now switch to the <strong>Hex View</strong> sub-window, make sure it synchronizes with the <strong>Pseudo Code</strong> sub-window, and NOP it.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/1f44b264-ae04-49e5-9a7a-a55bda1ed437" /></p>
+<p>After that, make sure the entire code line is absent when re-decompiled.</p>
+<p>Now return to the <strong>Strings</strong> sub-window, and this time search for <code>vtvtvt</code>.</p>
+<p>xref it, and choose the <strong>first</strong> xref entry for iOS, or the one with <code>@PAGE</code> for Android (refer to images.)</p>
+<table>
+<thead>
+<tr>
+<th>Android</th>
+<th>iOS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="image" src="https://gist.github.com/assets/74685931/65950e4f-c004-4b1d-a582-9e8a01a5ec03" /></td>
+<td><img alt="image" src="https://gist.github.com/assets/74685931/f5ce6a72-8307-42e6-9174-e4371b26680b" /></td>
+</tr>
+</tbody>
+</table>
+<p>Decompile it again, and scroll down a little bit until you see this part:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/8857dcd5-565c-4888-b9eb-3e248ae0fa5b" /></p>
+<p>Highlight this part, and NOP it like above:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/73ad185a-67e5-4cc2-b439-d122289c24d7" /></p>
+<p>After that, apply the patches and you are done!</p>
+<p>After patching the executable, save the file and recompress the APK/IPA file. For Android, <strong>you must resign the APK file before installing it onto your device.</strong> You may now sideload it onto your device using ADB, AppSync Unified (<em>not recommended due to potential crashes and issues.</em>), AltStore (&amp; friends) or TrollStore (<em>recommended for supported devices.</em>)</p>
+<h3 id="setting-up-private-server">Setting up private server</h3>
+<p>For this section, you will need:</p>
+<ul>
+<li>
+<p>Python 3.6 or newer.</p>
+</li>
+<li>
+<p><a href="https://www.charlesproxy.com/">Charles</a> (recommended), <a href="https://www.telerik.com/fiddler/fiddler-classic">Fiddler Classic</a> or any programs that allows redirecting HTTP requests through a proxy.</p>
+</li>
+<li>
+<p>Time and patience.</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Using any other OSes other than Windows for this may or may not work. You may need to figure stuff out on your own.</p>
+</div>
+<p>First, you need to obtain the server software. We will be using Lost-MSth's <a href="https://github.com/Lost-MSth/Arcaea-server">Arcaea-server</a> for this purpose. You may obtain it using <code>git</code> like this <code>git clone https://github.com/Lost-MSth/Arcaea-server -b dev</code> or by downloading the ZIP file of the <code>dev</code> branch.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/82f37fba-3372-447b-ae98-bd7612794810" /></p>
+<p>After obtaining the server software, navigate to its directory (<code>&lt;Arcaea-server&gt;/latest version</code>), and with Python 3.6 or newer installed, run <code>pip install -m requirements.txt</code>.</p>
+<p>From here, certain steps may differ depending on your operating system and the proxy software you picked. We will be using iOS and Charles in this case but the same can also be done for other similarly functioning software.</p>
+<h4 id="proxy-setup">Proxy setup</h4>
+<p>Open Charles and you will be presented with an interface like this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/f5b2fec9-0689-4c85-8991-f266e4449262" /></p>
+<p>Press <strong>CTRL + SHIFT + L</strong> or <strong>Proxy &gt; SSL Proxying Settings</strong> and tick the <strong>Enable SSL Proxying</strong> box. After that, click <strong>Add</strong>, fill <code>*</code> for both <strong>Host</strong> and <strong>Port</strong> then press <strong>OK</strong>, after that untick the newly added box. In the end, the SSL Proxying Settings window should look like this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/242f760a-2473-4fd4-bfb7-1a5f154a22d5" /></p>
+<p>Close that window, go to <strong>Proxy &gt; Proxy Settings</strong> and tweak it <em>exactly</em> like this image:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/e3be161a-8590-43f7-a16c-9351d924d969" /></p>
+<p>Navigate to the <strong>Windows</strong> tab and tick all checkboxes:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/e221385b-7b7c-43fc-8ee5-edc73d14fe1f" /></p>
+<p>Close that window, and go to <strong>Help &gt; Local IP Addresses</strong>. It will look something like this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/a6c2a2a2-5981-45ba-9a4d-a419d6ec9d3a" /></p>
+<p>Your local IP address will most likely be the first item in the list (in this case, since I am using Ethernet connection, it will be the first one.) Copy that IP address or memorize it. </p>
+<div class="admonition tip">
+<p class="admonition-title">About local IP addresses</p>
+<p>This is your <strong><em>local</em></strong> IP address, meaning it can only be accessed by devices that are connected to the same network.</p>
+</div>
+<p>You may now close that window and press <strong>CTRL + ALT + M</strong> or <strong>Tools &gt; Map Remote...</strong>, tick <strong>Enable Map Remote</strong> and press <strong>Add</strong>. Tweak it like this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/ab49da64-b284-462e-a549-3836e1eaa8a3" /></p>
+<p>In the <strong>Map To</strong> section, the <strong>Host</strong> textbox needs to be your local IP address that you got from above, and the <strong>Port</strong> textbox is a 4 digit number that your server will be running on. Pick any numbers you want <strong>except</strong> for ports like 8888 or 8889 and memorize it along with your local IP address. Press <strong>OK</strong>. The map remote interface should look like this in the end:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/10135270-6146-4865-9e6c-29e8d87cd690" /></p>
+<p>You may now close that window. At this point, the proxy is now ready. </p>
+<h4 id="server-software">Server software</h4>
+<p>The server software directory will look like this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/32dc5c2d-e268-41aa-a461-e7357fd43e41" /></p>
+<p>First, copy the <strong>config.example.py</strong> file into a file named <strong>config.py</strong> and open it with your favorite text editor. </p>
+<p>Most of the config properties are clearly documented in the config file, however for the sake of this guide I will guide you through the important parts. Feel free to skip ahead if you already know this.</p>
+<p>Remember that local IP address and port that you memorized not long ago? Well enter it here:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/7e00ed33-2eb3-429b-8190-25c2bc59ea75" /></p>
+<p><strong>HOST</strong> is your local IP address and <strong>PORT</strong> is the port you have choosen earlier.</p>
+<p>For <strong>GAME_API_PREFIX</strong>, this will differ depending on your Arcaea version. In this case which is 5.5.6 and 5.6.0, the API prefix is <code>/hanami/29</code>.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/c8cbab7e-e682-4747-96f2-c840ed4156ed" /></p>
+<p>For <strong>ALLOW_APPVERSION</strong>, remove everything inside.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/20cc5697-7a52-4aac-8ead-3090e6cc08ad" /></p>
+<p>For this part:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/97e19246-d00e-4852-a28f-ff9932d6b383" /></p>
+<p>If you want to use link play functionality, the only variables you need to care about are <strong>LINKPLAY_HOST</strong> and <strong>LINKPLAY_AUTHENTICATION</strong>.</p>
+<ul>
+<li>
+<p><strong>LINKPLAY_HOST</strong> needs to be the same as the IP address you have set in the <strong>HOST</strong> variable earlier <em>unless</em> the <strong>SET_LINKPLAY_SERVER_AS_SUB_PROCESS</strong> variable is set to <code>False</code>, at which you will need to specify a separate IP address for the link play server.</p>
+</li>
+<li>
+<p>For <strong>LINKPLAY_AUTHENTICATION</strong>, you can leave it as-is for use anything you want.</p>
+</li>
+</ul>
+<p>If you do not want to use link play functionality, the <strong>LINKPLAY_HOST</strong> variable needs to be an empty string.</p>
+<p>For <strong>SSL_CERT</strong> and <strong>SSL_KEY</strong>, if you want to have the server running under HTTPS, you may supply an SSL certificate here if you have one (.pem and .key file).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Running the server under HTTPS may cause issues with downloading packs/songs.</p>
+</div>
+<p>The rest of the config file should already be self-explanatory. Adjust them to your own likings. Save the file after finished editing.</p>
+<p>Now go to the <code>database</code> folder and it will look like this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/7bc2b7ed-641d-4d5e-a6ed-1f73b9e40d5e" /></p>
+<p>Run the <code>database_initialize.py</code> file to generate the database. Make sure you have installed all dependencies prior to running it in order for it to work. A file named <code>arcaea_database.db</code> will be created if successful. After that, do all of these:</p>
+<ul>
+<li>
+<p>Put the content bundle you have obtained above into the <code>bundle</code> folder. The actual bundle must have the <code>.cb</code> extension and the meta file must have the <code>.json</code> extension. Both must have the same filename (e.g. <code>5.6.0</code>).</p>
+</li>
+<li>
+<p>Put any songs you have into the <code>songs</code> folder. A song is a folder containing multiple .aff files (every difficulties of the song), base.jpg files (the jacket art), the song itself, the PV video for Terminal songs, and any additional files for that song.</p>
+</li>
+<li>
+<p>Make any adjustments you want to make.</p>
+</li>
+</ul>
+<p>At this point, the server software is now ready.</p>
+<h4 id="on-device-setup">On device setup</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Your phone and your computer (the one that runs the server) MUST be connected to the same network for the server to work.</p>
+</div>
+<p><strong><em>iOS</em></strong></p>
+<p>Open the <strong>Settings</strong> app, go to <strong>Wi-Fi</strong> settings, press the <strong>!</strong> icon on the connected network, scroll down until you found the <strong>HTTP Proxy</strong> settings. In the <strong>Configure Proxy</strong> settings, select <strong>Manual</strong> and fill in the <strong>Server</strong> field which is your local IP address and the <strong>Port</strong> field which is 8888. Now press <strong>Save</strong> and (optionally) turn off and reconnect to your Wi-Fi network.</p>
+<p>Now on your computer, return to Charles and go to <strong>Help &gt; SSL Proxying &gt; Install Charles Root Certificate on a Mobile Device or Remote Browser</strong>. A window like this will show up:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/c9f85e1c-9ef6-4c22-9113-79551ab73fed" /></p>
+<p>Follow the steps listed in it to install the Charles certificate onto your device.</p>
+<p><strong><em>Android</em></strong></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Android is finicky when it comes to proxy servers. Things may not work correctly or even at all.</p>
+</div>
+<p>First and foremost, go back to Charles and go to <strong>Help &gt; SSL Proxying &gt; Save Charles Root Certificate...</strong> Save the .pem file somewhere. Rename the .pem extension to .crt. Now transfer this file to your Android device and install it to both categories.</p>
+<p>On Android, you will need to rely on a proxifier app such as <a href="https://play.google.com/store/apps/details?id=com.lazybean.vpnperapp">VProxid</a> or <a href="https://play.google.com/store/apps/details?id=com.lazybean.socksperapp">RProxid</a> (requires root). You need to connect through the SOCKS5 proxy server.</p>
+<p>After installing either of the proxifier app, open it and press the <strong>+</strong> icon, for <strong>Server IP</strong>, enter your local IP address; for <strong>Server Port</strong>, enter 8889. Scroll down a little bit and press <strong>Click to select application(s)</strong> then tick Arcaea. Now return and press the play button to start the VPN. Wait until it shows all good.</p>
+<p>Now your device is ready to connect to the private server!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Disable the proxy when you have finished playing to prevent connectivity issues. The proxy will need to be re-enabled everytime you want to use the server. A dedicated 24/7 server such as a Raspberry Pi, a spare phone/computer with working shell, or a cloud server (VPS) is recommended for always-on server hosting.</p>
+</div>
+<h4 id="playing">Playing</h4>
+<p>Return to the root directory of your server and run the <code>run.bat</code> file. It may take a while to start depending on the amount of songs you added. If the server console shows this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/ad8ea11d-dd9b-4831-9982-6b8bee0526f6" /></p>
+<p>Congratulations! Your server is now up and running! Now all that left is open Arcaea and play!</p>
+<p>If you see something like this, it means the server is working as intended.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/c56fc44c-53af-4868-bac7-feeee0bc1f46" /></p>
+<p>At this point, you are basically done! Enjoy your new server!</p>
+<h4 id="fixes-for-notable-issues">Fixes for notable issues</h4>
+<p><strong><em>Cannot play any songs in Black Fate and Final Verdict despite having already downloaded the songs.</em></strong></p>
+<p>-&gt; Check the songs folder to see if they are named correctly. For <em>Final Verdict</em> pack, most of the songs have PV videos on them (some may have both 1080p and 720p versions). If these files were missing, the pack will not be fully downloaded and the game will always prompts you to update the pack when trying to play any songs or accessing <em>Axiom of the End</em>.</p>
+<p><strong><em>Cannot download any songs.</em></strong></p>
+<p>-&gt; Make sure the server is running under HTTP connection. For iOS players, you may need to edit the <code>Info.plist</code> file using a plist editor to allow HTTP connection without a jailbreak by setting <code>NSAllowsArbitraryLoads</code> property to <code>true</code>.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/9ec62ee6-2b13-45c7-865c-bd6949ddf1df" /></p>
+<p><strong><em>None of the things work, even logging in.</em></strong></p>
+<p>-&gt; Check if the <code>GAME_API_PREFIX</code> variable in the <code>config.py</code> file is set correctly. If that did not work, make sure you have set up the proxy correctly and that necessary certificates has been successfully installed.</p>
+<p><strong><em>App not installed error when trying to install modded APK on Android.</em></strong></p>
+<p>-&gt; <em>Resign the APK.</em> There are tools and guides on the Internet for that.</p>
+<p><strong><em>Arcaea becomes unlaunchable after 7 days on iOS.</em></strong></p>
+<p>-&gt; Use TrollStore if your device supports it. If you used something like AltStore or Sideloadly, you have to resign Arcaea every 7 days unless you have a paid Apple Developer Account.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      
+    
+  </body>
+</html>
