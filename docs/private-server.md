@@ -1,23 +1,26 @@
 # Setting up your own Arcaea server
 
 !!! note "Before starting"
-    Make sure to have a copy of Arcaea APK/IPA file ready. For IPA file, make sure its decrypted as otherwise you will run into issues.
+    Make sure you have a copy of Arcaea APK/IPA file ready.
 
 ### Obtaining content bundle
 !!! note
-    Only for Arcaea 5.4.0 or newer and non-Chinese versions.
+    Only for Arcaea 5.4.0+ and non-Chinese versions.
 
-Starting from Arcaea 5.4.0, the game now uses content bundles to serve base game contents (characters & songs) instead of bundling them in the APK/IPA file. 
+Starting from Arcaea 5.4.0, the game now uses content bundle to deliver base contents such as characters and songs. 
 
-To get them, install Arcaea from [Google Play Store](https://play.google.com/store/apps/details?id=moe.low.arc&hl=en_US) or [Apple App Store](https://apps.apple.com/us/app/arcaea/id1205999125), then open it let it finish downloading the content bundles and you are done!
+Obtaining the content bundle will requires you to install Arcaea once and let it finish downloading the bundle (~491 MB). 
 
-From here, steps to extract the contents of the bundle will differ depending on your operating system.
+!!! tip
+    Force quit the game AFTER the content bundle is downloaded (before file verification).
 
-* For Android, the content bundle is stored in `/data/data/moe.low.arc/files`. **Root is required to access this directory.**
+After downloading it, steps to get the files will be different depending on your operating system
 
-* For iOS, the content bundle is stored in `/var/mobile/Containers/Data/Application/<Arcaea data container ID>/Library/Application Support`. **Filza is required to access this directory.** Apps Manager or App Index (the latter is only available when jailbroken) is recommend for easier access.
+* For Android, the content bundle is stored in `/data/data/moe.low.arc/files`. **Root is required to access this directory. Shizuku may not work.**
 
-Copy the `cb` folder and `dltemp` folder to your computer using SSH, ADB, AFC2 (jailbroken iOS only) or any methods that works for you.
+* For iOS, the content bundle is stored in `/var/mobile/Containers/Data/Application/<Arcaea data container ID>/Library/Application Support`. **Filza is required to access this directory.**
+
+Copy the `dltemp` folder to your computer. Inside it should contain 2 files with the same filename: one with .bundle and one with .json.
 
 ### Patching Arcaea
 !!! note
@@ -55,7 +58,7 @@ After that, you are done!
 
 #### Manual patching (Advanced)
 !!! note "Before starting"
-    This section requires basic knowledge of disassembling as well as Googling. You will also need a disassembler with support for ELF/Mach-O arm64 executables and pseudo-code decompilation for this section (e.g. IDA Pro, Ghidra, etc..) IDA Pro is used for this guide.
+    This section requires basic knowledge of disassembling as well as Googling. You will also need a disassembler with support for ELF/Mach-O arm64 executables and pseudo-code decompilation for this section. IDA Pro is used here.
 
 !!! tip "About NOP"
     `1F 20 03 D5` is the hex equivalent of ARM64 `nop` instruction. Overwrite a hex address with it when you want to remove a specific instruction call.
@@ -94,7 +97,7 @@ After that, make sure the entire code line is absent when re-decompiled.
 
 Now return to the **Strings** sub-window, and this time search for `vtvtvt`.
 
-xref it, and choose the **first** xref entry for iOS, or the one with `@PAGE` for Android (refer to images.)
+xref it, and choose the first xref entry for iOS, or the one with `@PAGE` for Android.
 
 | Android | iOS |
 | ------- | --- |
@@ -173,9 +176,9 @@ The server software directory will look like this:
 
 ![image](https://gist.github.com/assets/74685931/32dc5c2d-e268-41aa-a461-e7357fd43e41)
 
-First, copy the **config.example.py** file into a file named **config.py** and open it with your favorite text editor. 
+Copy the **config.example.py** file into a file named **config.py** and open it with your favorite text editor. 
 
-Most of the config properties are clearly documented in the config file, however for the sake of this guide I will guide you through the important parts. Feel free to skip ahead if you already know this.
+Most of the config properties should already be self-explanatory. Below is guide for a few important parts.
 
 Remember that local IP address and port that you memorized not long ago? Well enter it here:
 
@@ -183,11 +186,15 @@ Remember that local IP address and port that you memorized not long ago? Well en
 
 **HOST** is your local IP address and **PORT** is the port you have choosen earlier.
 
-For **GAME_API_PREFIX**, this will differ depending on your Arcaea version. In this case which is 5.5.6 and 5.6.0, the API prefix is `/hanami/29`.
+For **GAME_API_PREFIX**, this will differ depending on your Arcaea version. Refer to the table below.
+
+| Version | Prefix |
+| ------- | ------ |
+| 5.5.6 -> 5.6.1 | `/hanami/29` |
 
 ![image](https://gist.github.com/assets/74685931/c8cbab7e-e682-4747-96f2-c840ed4156ed)
 
-For **ALLOW_APPVERSION**, remove everything inside.
+For **ALLOW_APPVERSION**, remove everything inside. You may add a version to the list (e.g. `5.6.1) if you want to restrict the server to (a) specific server.
 
 ![image](https://gist.github.com/assets/74685931/20cc5697-7a52-4aac-8ead-3090e6cc08ad)
 
@@ -208,7 +215,7 @@ For **SSL_CERT** and **SSL_KEY**, if you want to have the server running under H
 !!! warning
     Running the server under HTTPS may cause issues with downloading packs/songs.
 
-The rest of the config file should already be self-explanatory. Adjust them to your own likings. Save the file after finished editing.
+Adjust the rest of the config file to your own likings. Save the file after finished.
 
 Now go to the `database` folder and it will look like this:
 
@@ -267,24 +274,16 @@ If you see something like this, it means the server is working as intended.
 At this point, you are basically done! Enjoy your new server!
 
 #### Fixes for notable issues
-***Cannot play any songs in Black Fate and Final Verdict despite having already downloaded the songs.***
+***The game kept prompting to update a pack despite having already downloaded it.***
 
--> Check the songs folder to see if they are named correctly. For *Final Verdict* pack, most of the songs have PV videos on them (some may have both 1080p and 720p versions). If these files were missing, the pack will not be fully downloaded and the game will always prompts you to update the pack when trying to play any songs or accessing *Axiom of the End*.
+-> Check the songs folder to see if they are named correctly and that all files (plus PV videos and audios if exists) are inside.
 
 ***Cannot download any songs.***
 
--> Make sure the server is running under HTTP connection. For iOS players, you may need to edit the `Info.plist` file using a plist editor to allow HTTP connection without a jailbreak by setting `NSAllowsArbitraryLoads` property to `true`.
+-> Make sure the server is running under HTTP connection. For iOS, you may need to edit the `Info.plist` file using a plist editor to allow HTTP connection without a jailbreak by setting `NSAllowsArbitraryLoads` property to `true`.
 
 ![image](https://gist.github.com/assets/74685931/9ec62ee6-2b13-45c7-865c-bd6949ddf1df)
 
-***None of the things work, even logging in.***
+***Nothing works, even logging in.***
 
--> Check if the `GAME_API_PREFIX` variable in the `config.py` file is set correctly. If that did not work, make sure you have set up the proxy correctly and that necessary certificates has been successfully installed.
-
-***App not installed error when trying to install modded APK on Android.***
-
--> *Resign the APK.* There are tools and guides on the Internet for that.
-
-***Arcaea becomes unlaunchable after 7 days on iOS.***
-
--> Use TrollStore if your device supports it. If you used something like AltStore or Sideloadly, you have to resign Arcaea every 7 days unless you have a paid Apple Developer Account.
+-> Check if the `GAME_API_PREFIX` variable in the `config.py` file is set correctly. If that did not work, make sure you have set up the proxy correctly (refer to the [Proxy setup](#proxy-setup) and [On device proxy setup](#on-device-setup) section.)

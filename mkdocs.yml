@@ -13,6 +13,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Private Server: private-server.md
+  - Reverse Engineering: offline-mod.md
 theme:
   name: material
   palette:
