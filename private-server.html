@@ -12,6 +12,8 @@
         <link rel="prev" href="index.html">
       
       
+        <link rel="next" href="offline-mod.html">
+      
       
       <link rel="icon" href="assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
@@ -402,6 +404,26 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="offline-mod.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reverse Engineering
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -548,25 +570,29 @@
 <h1 id="setting-up-your-own-arcaea-server">Setting up your own Arcaea server</h1>
 <div class="admonition note">
 <p class="admonition-title">Before starting</p>
-<p>Make sure to have a copy of Arcaea APK/IPA file ready. For IPA file, make sure its decrypted as otherwise you will run into issues.</p>
+<p>Make sure you have a copy of Arcaea APK/IPA file ready.</p>
 </div>
 <h3 id="obtaining-content-bundle">Obtaining content bundle</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only for Arcaea 5.4.0 or newer and non-Chinese versions.</p>
+<p>Only for Arcaea 5.4.0+ and non-Chinese versions.</p>
 </div>
-<p>Starting from Arcaea 5.4.0, the game now uses content bundles to serve base game contents (characters &amp; songs) instead of bundling them in the APK/IPA file. </p>
-<p>To get them, install Arcaea from <a href="https://play.google.com/store/apps/details?id=moe.low.arc&amp;hl=en_US">Google Play Store</a> or <a href="https://apps.apple.com/us/app/arcaea/id1205999125">Apple App Store</a>, then open it let it finish downloading the content bundles and you are done!</p>
-<p>From here, steps to extract the contents of the bundle will differ depending on your operating system.</p>
+<p>Starting from Arcaea 5.4.0, the game now uses content bundle to deliver base contents such as characters and songs. </p>
+<p>Obtaining the content bundle will requires you to install Arcaea once and let it finish downloading the bundle (~491 MB). </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Force quit the game AFTER the content bundle is downloaded (before file verification).</p>
+</div>
+<p>After downloading it, steps to get the files will be different depending on your operating system</p>
 <ul>
 <li>
-<p>For Android, the content bundle is stored in <code>/data/data/moe.low.arc/files</code>. <strong>Root is required to access this directory.</strong></p>
+<p>For Android, the content bundle is stored in <code>/data/data/moe.low.arc/files</code>. <strong>Root is required to access this directory. Shizuku may not work.</strong></p>
 </li>
 <li>
-<p>For iOS, the content bundle is stored in <code>/var/mobile/Containers/Data/Application/&lt;Arcaea data container ID&gt;/Library/Application Support</code>. <strong>Filza is required to access this directory.</strong> Apps Manager or App Index (the latter is only available when jailbroken) is recommend for easier access.</p>
+<p>For iOS, the content bundle is stored in <code>/var/mobile/Containers/Data/Application/&lt;Arcaea data container ID&gt;/Library/Application Support</code>. <strong>Filza is required to access this directory.</strong></p>
 </li>
 </ul>
-<p>Copy the <code>cb</code> folder and <code>dltemp</code> folder to your computer using SSH, ADB, AFC2 (jailbroken iOS only) or any methods that works for you.</p>
+<p>Copy the <code>dltemp</code> folder to your computer. Inside it should contain 2 files with the same filename: one with .bundle and one with .json.</p>
 <h3 id="patching-arcaea">Patching Arcaea</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -605,7 +631,7 @@
 <h4 id="manual-patching-advanced">Manual patching (Advanced)</h4>
 <div class="admonition note">
 <p class="admonition-title">Before starting</p>
-<p>This section requires basic knowledge of disassembling as well as Googling. You will also need a disassembler with support for ELF/Mach-O arm64 executables and pseudo-code decompilation for this section (e.g. IDA Pro, Ghidra, etc..) IDA Pro is used for this guide.</p>
+<p>This section requires basic knowledge of disassembling as well as Googling. You will also need a disassembler with support for ELF/Mach-O arm64 executables and pseudo-code decompilation for this section. IDA Pro is used here.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">About NOP</p>
@@ -628,7 +654,7 @@
 <p><img alt="image" src="https://gist.github.com/assets/74685931/1f44b264-ae04-49e5-9a7a-a55bda1ed437" /></p>
 <p>After that, make sure the entire code line is absent when re-decompiled.</p>
 <p>Now return to the <strong>Strings</strong> sub-window, and this time search for <code>vtvtvt</code>.</p>
-<p>xref it, and choose the <strong>first</strong> xref entry for iOS, or the one with <code>@PAGE</code> for Android (refer to images.)</p>
+<p>xref it, and choose the first xref entry for iOS, or the one with <code>@PAGE</code> for Android.</p>
 <table>
 <thead>
 <tr>
@@ -694,14 +720,28 @@
 <h4 id="server-software">Server software</h4>
 <p>The server software directory will look like this:</p>
 <p><img alt="image" src="https://gist.github.com/assets/74685931/32dc5c2d-e268-41aa-a461-e7357fd43e41" /></p>
-<p>First, copy the <strong>config.example.py</strong> file into a file named <strong>config.py</strong> and open it with your favorite text editor. </p>
-<p>Most of the config properties are clearly documented in the config file, however for the sake of this guide I will guide you through the important parts. Feel free to skip ahead if you already know this.</p>
+<p>Copy the <strong>config.example.py</strong> file into a file named <strong>config.py</strong> and open it with your favorite text editor. </p>
+<p>Most of the config properties should already be self-explanatory. Below is guide for a few important parts.</p>
 <p>Remember that local IP address and port that you memorized not long ago? Well enter it here:</p>
 <p><img alt="image" src="https://gist.github.com/assets/74685931/7e00ed33-2eb3-429b-8190-25c2bc59ea75" /></p>
 <p><strong>HOST</strong> is your local IP address and <strong>PORT</strong> is the port you have choosen earlier.</p>
-<p>For <strong>GAME_API_PREFIX</strong>, this will differ depending on your Arcaea version. In this case which is 5.5.6 and 5.6.0, the API prefix is <code>/hanami/29</code>.</p>
+<p>For <strong>GAME_API_PREFIX</strong>, this will differ depending on your Arcaea version. Refer to the table below.</p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Prefix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5.5.6 -&gt; 5.6.1</td>
+<td><code>/hanami/29</code></td>
+</tr>
+</tbody>
+</table>
 <p><img alt="image" src="https://gist.github.com/assets/74685931/c8cbab7e-e682-4747-96f2-c840ed4156ed" /></p>
-<p>For <strong>ALLOW_APPVERSION</strong>, remove everything inside.</p>
+<p>For <strong>ALLOW_APPVERSION</strong>, remove everything inside. You may add a version to the list (e.g. `5.6.1) if you want to restrict the server to (a) specific server.</p>
 <p><img alt="image" src="https://gist.github.com/assets/74685931/20cc5697-7a52-4aac-8ead-3090e6cc08ad" /></p>
 <p>For this part:</p>
 <p><img alt="image" src="https://gist.github.com/assets/74685931/97e19246-d00e-4852-a28f-ff9932d6b383" /></p>
@@ -720,7 +760,7 @@
 <p class="admonition-title">Warning</p>
 <p>Running the server under HTTPS may cause issues with downloading packs/songs.</p>
 </div>
-<p>The rest of the config file should already be self-explanatory. Adjust them to your own likings. Save the file after finished editing.</p>
+<p>Adjust the rest of the config file to your own likings. Save the file after finished.</p>
 <p>Now go to the <code>database</code> folder and it will look like this:</p>
 <p><img alt="image" src="https://gist.github.com/assets/74685931/7bc2b7ed-641d-4d5e-a6ed-1f73b9e40d5e" /></p>
 <p>Run the <code>database_initialize.py</code> file to generate the database. Make sure you have installed all dependencies prior to running it in order for it to work. A file named <code>arcaea_database.db</code> will be created if successful. After that, do all of these:</p>
@@ -767,17 +807,13 @@
 <p><img alt="image" src="https://gist.github.com/assets/74685931/c56fc44c-53af-4868-bac7-feeee0bc1f46" /></p>
 <p>At this point, you are basically done! Enjoy your new server!</p>
 <h4 id="fixes-for-notable-issues">Fixes for notable issues</h4>
-<p><strong><em>Cannot play any songs in Black Fate and Final Verdict despite having already downloaded the songs.</em></strong></p>
-<p>-&gt; Check the songs folder to see if they are named correctly. For <em>Final Verdict</em> pack, most of the songs have PV videos on them (some may have both 1080p and 720p versions). If these files were missing, the pack will not be fully downloaded and the game will always prompts you to update the pack when trying to play any songs or accessing <em>Axiom of the End</em>.</p>
+<p><strong><em>The game kept prompting to update a pack despite having already downloaded it.</em></strong></p>
+<p>-&gt; Check the songs folder to see if they are named correctly and that all files (plus PV videos and audios if exists) are inside.</p>
 <p><strong><em>Cannot download any songs.</em></strong></p>
-<p>-&gt; Make sure the server is running under HTTP connection. For iOS players, you may need to edit the <code>Info.plist</code> file using a plist editor to allow HTTP connection without a jailbreak by setting <code>NSAllowsArbitraryLoads</code> property to <code>true</code>.</p>
+<p>-&gt; Make sure the server is running under HTTP connection. For iOS, you may need to edit the <code>Info.plist</code> file using a plist editor to allow HTTP connection without a jailbreak by setting <code>NSAllowsArbitraryLoads</code> property to <code>true</code>.</p>
 <p><img alt="image" src="https://gist.github.com/assets/74685931/9ec62ee6-2b13-45c7-865c-bd6949ddf1df" /></p>
-<p><strong><em>None of the things work, even logging in.</em></strong></p>
-<p>-&gt; Check if the <code>GAME_API_PREFIX</code> variable in the <code>config.py</code> file is set correctly. If that did not work, make sure you have set up the proxy correctly and that necessary certificates has been successfully installed.</p>
-<p><strong><em>App not installed error when trying to install modded APK on Android.</em></strong></p>
-<p>-&gt; <em>Resign the APK.</em> There are tools and guides on the Internet for that.</p>
-<p><strong><em>Arcaea becomes unlaunchable after 7 days on iOS.</em></strong></p>
-<p>-&gt; Use TrollStore if your device supports it. If you used something like AltStore or Sideloadly, you have to resign Arcaea every 7 days unless you have a paid Apple Developer Account.</p>
+<p><strong><em>Nothing works, even logging in.</em></strong></p>
+<p>-&gt; Check if the <code>GAME_API_PREFIX</code> variable in the <code>config.py</code> file is set correctly. If that did not work, make sure you have set up the proxy correctly (refer to the <a href="#proxy-setup">Proxy setup</a> and <a href="#on-device-setup">On device proxy setup</a> section.)</p>
 
 
 
