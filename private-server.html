@@ -597,7 +597,7 @@
 <p class="admonition-title">Note</p>
 <p>Only for Arcaea 5.4.0+ and non-Chinese versions.</p>
 </div>
-<p>Starting from Arcaea 5.4.0, the game now uses content bundle to deliver base contents such as characters and songs. </p>
+<p>Starting from Arcaea 5.4.0, the game now uses content bundle to deliver base contents such as characters and songs. You <strong>must</strong> obtain this before proceeding.</p>
 <p>Obtaining the content bundle will requires you to install Arcaea once and let it finish downloading the bundle (~491 MB). </p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -606,10 +606,10 @@
 <p>After downloading it, steps to get the files will be different depending on your operating system</p>
 <ul>
 <li>
-<p>For Android, the content bundle is stored in <code>/data/data/moe.low.arc/files</code>. <strong>Root is required to access this directory. Shizuku may not work.</strong></p>
+<p>For Android, the content bundle is stored in <code>/data/data/moe.low.arc/files</code>. <strong>Root/custom recoveries (e.g. TWRP) is required to access this directory. Shizuku will not work.</strong></p>
 </li>
 <li>
-<p>For iOS, the content bundle is stored in <code>/var/mobile/Containers/Data/Application/&lt;Arcaea data container ID&gt;/Library/Application Support</code>. <strong>Filza is required to access this directory.</strong></p>
+<p>For iOS, the content bundle is stored in <code>/var/mobile/Containers/Data/Application/&lt;Arcaea data container ID&gt;/Library/Application Support</code>. <strong>Filza or an unsandboxed file manager is required to access this directory.</strong></p>
 </li>
 </ul>
 <p>Copy the <code>dltemp</code> folder to your computer. Inside it should contain 2 files with the same filename: one with .bundle and one with .json.</p>
@@ -785,9 +785,13 @@
 <p><img alt="image" src="https://gist.github.com/assets/74685931/7bc2b7ed-641d-4d5e-a6ed-1f73b9e40d5e" /></p>
 <p>Run the <code>database_initialize.py</code> file to generate the database. Make sure you have installed all dependencies prior to running it in order for it to work. A file named <code>arcaea_database.db</code> will be created if successful. After that, do all of these:</p>
 <ul>
-<li>
-<p>Put the content bundle you have obtained above into the <code>bundle</code> folder. The actual bundle must have the <code>.cb</code> extension and the meta file must have the <code>.json</code> extension. Both must have the same filename (e.g. <code>5.6.0</code>).</p>
-</li>
+<li>Put the content bundle you have obtained above into the <code>bundle</code> folder. The actual bundle must have the <code>.cb</code> extension and the meta file must have the <code>.json</code> extension. Both must have the same filename (e.g. <code>5.6.0</code>).</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The content bundle in the server must be the same as the one existing in your Arcaea client (the metadata and content MUST match) as otherwise you will encounter issues when trying to login. If you change the content bundle in the server, the one on the client should be redownloaded.</p>
+</div>
+<ul>
 <li>
 <p>Put any songs you have into the <code>songs</code> folder. A song is a folder containing multiple .aff files (every difficulties of the song), base.jpg files (the jacket art), the song itself, the PV video for Terminal songs, and any additional files for that song.</p>
 </li>
@@ -812,7 +816,7 @@
 <p>Android is finicky when it comes to proxy servers. Things may not work correctly or even at all.</p>
 </div>
 <p>First and foremost, go back to Charles and go to <strong>Help &gt; SSL Proxying &gt; Save Charles Root Certificate...</strong> Save the .pem file somewhere. Rename the .pem extension to .crt. Now transfer this file to your Android device and install it to both categories.</p>
-<p>On Android, you will need to rely on a proxifier app such as <a href="https://play.google.com/store/apps/details?id=com.lazybean.vpnperapp">VProxid</a> or <a href="https://play.google.com/store/apps/details?id=com.lazybean.socksperapp">RProxid</a> (requires root). You need to connect through the SOCKS5 proxy server.</p>
+<p>On Android, you will need to rely on a proxifier app such as <a href="https://play.google.com/store/apps/details?id=com.lazybean.vpnperapp">VProxid</a> or <a href="https://play.google.com/store/apps/details?id=com.lazybean.socksperapp">RProxid</a> (requires root, recommended). You need to connect through the SOCKS5 proxy server.</p>
 <p>After installing either of the proxifier app, open it and press the <strong>+</strong> icon, for <strong>Server IP</strong>, enter your local IP address; for <strong>Server Port</strong>, enter 8889. Scroll down a little bit and press <strong>Click to select application(s)</strong> then tick Arcaea. Now return and press the play button to start the VPN. Wait until it shows all good.</p>
 <p>Now your device is ready to connect to the private server!</p>
 <div class="admonition note">
@@ -828,7 +832,7 @@
 <p>At this point, you are basically done! Enjoy your new server!</p>
 <h4 id="fixes-for-notable-issues">Fixes for notable issues</h4>
 <p><strong><em>The game kept prompting to update a pack despite having already downloaded it.</em></strong></p>
-<p>-&gt; Check the songs folder to see if they are named correctly and that all files (plus PV videos and audios if exists) are inside.</p>
+<p>-&gt; Check the song folders to see if they are named correctly and that all files (plus PV videos and audios if exists) are inside.</p>
 <p><strong><em>Cannot download any songs.</em></strong></p>
 <p>-&gt; Make sure the server is running under HTTP connection. For iOS, you may need to edit the <code>Info.plist</code> file using a plist editor to allow HTTP connection without a jailbreak by setting <code>NSAllowsArbitraryLoads</code> property to <code>true</code>.</p>
 <p><img alt="image" src="https://gist.github.com/assets/74685931/9ec62ee6-2b13-45c7-865c-bd6949ddf1df" /></p>
