@@ -7,7 +7,7 @@
 !!! note
     Only for Arcaea 5.4.0+ and non-Chinese versions.
 
-Starting from Arcaea 5.4.0, the game now uses content bundle to deliver base contents such as characters and songs. 
+Starting from Arcaea 5.4.0, the game now uses content bundle to deliver base contents such as characters and songs. You **must** obtain this before proceeding.
 
 Obtaining the content bundle will requires you to install Arcaea once and let it finish downloading the bundle (~491 MB). 
 
@@ -16,9 +16,9 @@ Obtaining the content bundle will requires you to install Arcaea once and let it
 
 After downloading it, steps to get the files will be different depending on your operating system
 
-* For Android, the content bundle is stored in `/data/data/moe.low.arc/files`. **Root is required to access this directory. Shizuku may not work.**
+* For Android, the content bundle is stored in `/data/data/moe.low.arc/files`. **Root/custom recoveries (e.g. TWRP) is required to access this directory. Shizuku will not work.**
 
-* For iOS, the content bundle is stored in `/var/mobile/Containers/Data/Application/<Arcaea data container ID>/Library/Application Support`. **Filza is required to access this directory.**
+* For iOS, the content bundle is stored in `/var/mobile/Containers/Data/Application/<Arcaea data container ID>/Library/Application Support`. **Filza or an unsandboxed file manager is required to access this directory.**
 
 Copy the `dltemp` folder to your computer. Inside it should contain 2 files with the same filename: one with .bundle and one with .json.
 
@@ -225,6 +225,9 @@ Run the `database_initialize.py` file to generate the database. Make sure you ha
 
 * Put the content bundle you have obtained above into the `bundle` folder. The actual bundle must have the `.cb` extension and the meta file must have the `.json` extension. Both must have the same filename (e.g. `5.6.0`).
 
+!!! note
+    The content bundle in the server must be the same as the one existing in your Arcaea client (the metadata and content MUST match) as otherwise you will encounter issues when trying to login. If you change the content bundle in the server, the one on the client should be redownloaded.
+
 * Put any songs you have into the `songs` folder. A song is a folder containing multiple .aff files (every difficulties of the song), base.jpg files (the jacket art), the song itself, the PV video for Terminal songs, and any additional files for that song.
 
 * Make any adjustments you want to make.
@@ -234,6 +237,7 @@ At this point, the server software is now ready.
 #### On device setup
 !!! note
     Your phone and your computer (the one that runs the server) MUST be connected to the same network for the server to work.
+
 ***iOS***
 
 Open the **Settings** app, go to **Wi-Fi** settings, press the **!** icon on the connected network, scroll down until you found the **HTTP Proxy** settings. In the **Configure Proxy** settings, select **Manual** and fill in the **Server** field which is your local IP address and the **Port** field which is 8888. Now press **Save** and (optionally) turn off and reconnect to your Wi-Fi network.
@@ -251,7 +255,7 @@ Follow the steps listed in it to install the Charles certificate onto your devic
 
 First and foremost, go back to Charles and go to **Help > SSL Proxying > Save Charles Root Certificate...** Save the .pem file somewhere. Rename the .pem extension to .crt. Now transfer this file to your Android device and install it to both categories.
 
-On Android, you will need to rely on a proxifier app such as [VProxid](https://play.google.com/store/apps/details?id=com.lazybean.vpnperapp) or [RProxid](https://play.google.com/store/apps/details?id=com.lazybean.socksperapp) (requires root). You need to connect through the SOCKS5 proxy server.
+On Android, you will need to rely on a proxifier app such as [VProxid](https://play.google.com/store/apps/details?id=com.lazybean.vpnperapp) or [RProxid](https://play.google.com/store/apps/details?id=com.lazybean.socksperapp) (requires root, recommended). You need to connect through the SOCKS5 proxy server.
 
 After installing either of the proxifier app, open it and press the **+** icon, for **Server IP**, enter your local IP address; for **Server Port**, enter 8889. Scroll down a little bit and press **Click to select application(s)** then tick Arcaea. Now return and press the play button to start the VPN. Wait until it shows all good.
 
@@ -276,7 +280,7 @@ At this point, you are basically done! Enjoy your new server!
 #### Fixes for notable issues
 ***The game kept prompting to update a pack despite having already downloaded it.***
 
--> Check the songs folder to see if they are named correctly and that all files (plus PV videos and audios if exists) are inside.
+-> Check the song folders to see if they are named correctly and that all files (plus PV videos and audios if exists) are inside.
 
 ***Cannot download any songs.***
 
