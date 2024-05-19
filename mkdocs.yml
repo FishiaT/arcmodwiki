@@ -3,13 +3,24 @@ plugins:
   - offline
   - search
 markdown_extensions:
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
   - def_list
   - attr_list
   - pymdownx.tasklist:
       custom_checkbox: true
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
 nav:
   - Home: index.md
   - Private Server: private-server.md
@@ -28,3 +39,5 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+  features:
+    - content.code.copy
