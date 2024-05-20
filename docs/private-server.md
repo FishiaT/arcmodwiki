@@ -206,7 +206,7 @@ If you want to use link play functionality, the only variables you need to care 
 
 * **LINKPLAY_HOST** needs to be the same as the IP address you have set in the **HOST** variable earlier *unless* the **SET_LINKPLAY_SERVER_AS_SUB_PROCESS** variable is set to `False`, at which you will need to specify a separate IP address for the link play server.
 
-* For **LINKPLAY_AUTHENTICATION**, you can leave it as-is for use anything you want.
+* For **LINKPLAY_AUTHENTICATION**, you can leave it as-is or type in anything you want.
 
 If you do not want to use link play functionality, the **LINKPLAY_HOST** variable needs to be an empty string.
 
@@ -228,6 +228,8 @@ Run the `database_initialize.py` file to generate the database. Make sure you ha
 !!! note
     The content bundle in the server must be the same as the one existing in your Arcaea client (the metadata and content MUST match) as otherwise you will encounter issues when trying to login. If you change the content bundle in the server, the one on the client should be redownloaded.
 
+    To avoid issues, use the content bundle that you have obtained [earlier](#obtaining-content-bundle).
+
 * Put any songs you have into the `songs` folder. A song is a folder containing multiple .aff files (every difficulties of the song), base.jpg files (the jacket art), the song itself, the PV video for Terminal songs, and any additional files for that song.
 
 * Make any adjustments you want to make.
@@ -238,26 +240,26 @@ At this point, the server software is now ready.
 !!! note
     Your phone and your computer (the one that runs the server) MUST be connected to the same network for the server to work.
 
-***iOS***
+=== "iOS"
 
-Open the **Settings** app, go to **Wi-Fi** settings, press the **!** icon on the connected network, scroll down until you found the **HTTP Proxy** settings. In the **Configure Proxy** settings, select **Manual** and fill in the **Server** field which is your local IP address and the **Port** field which is 8888. Now press **Save** and (optionally) turn off and reconnect to your Wi-Fi network.
+    Open the **Settings** app, go to **Wi-Fi** settings, press the **!** icon on the connected network, scroll down until you found the **HTTP Proxy** settings. In the **Configure Proxy** settings, select **Manual** and fill in the **Server** field which is your local IP address and the **Port** field which is 8888. Now press **Save** and (optionally) turn off and reconnect to your Wi-Fi network.
 
-Now on your computer, return to Charles and go to **Help > SSL Proxying > Install Charles Root Certificate on a Mobile Device or Remote Browser**. A window like this will show up:
+    Now on your computer, return to Charles and go to **Help > SSL Proxying > Install Charles Root Certificate on a Mobile Device or Remote Browser**. A window like this will show up:
 
-![image](https://gist.github.com/assets/74685931/c9f85e1c-9ef6-4c22-9113-79551ab73fed)
+    ![image](https://gist.github.com/assets/74685931/c9f85e1c-9ef6-4c22-9113-79551ab73fed)
 
-Follow the steps listed in it to install the Charles certificate onto your device.
+    Follow the steps listed in it to install the Charles certificate onto your device. You will also need to go to **Settings > General > About > Certificate Trust Settings** and enable full trust for the newly added certificate for it to take affect.
 
-***Android***
+=== "Android"
 
-!!! warning
-    Android is finicky when it comes to proxy servers. Things may not work correctly or even at all.
+    !!! warning
+        From limited testing, Android is finicky when it comes to maintaining connection to proxy server. Things may not work correctly or even at all. If you have a way to fix this, feel free to contribute!
 
-First and foremost, go back to Charles and go to **Help > SSL Proxying > Save Charles Root Certificate...** Save the .pem file somewhere. Rename the .pem extension to .crt. Now transfer this file to your Android device and install it to both categories.
+    Go back to Charles and go to **Help > SSL Proxying > Save Charles Root Certificate...** Save the .pem file somewhere. Rename the .pem extension to .crt. Now transfer this file to your Android device and install it to both categories.
 
-On Android, you will need to rely on a proxifier app such as [VProxid](https://play.google.com/store/apps/details?id=com.lazybean.vpnperapp) or [RProxid](https://play.google.com/store/apps/details?id=com.lazybean.socksperapp) (requires root, recommended). You need to connect through the SOCKS5 proxy server.
+    On Android, you will need to rely on a proxifier app such as [VProxid](https://play.google.com/store/apps/details?id=com.lazybean.vpnperapp) or [RProxid](https://play.google.com/store/apps/details?id=com.lazybean.socksperapp) (requires root, recommended). You need to connect through the SOCKS5 proxy server.
 
-After installing either of the proxifier app, open it and press the **+** icon, for **Server IP**, enter your local IP address; for **Server Port**, enter 8889. Scroll down a little bit and press **Click to select application(s)** then tick Arcaea. Now return and press the play button to start the VPN. Wait until it shows all good.
+    After installing either of the proxifier app, open it and press the **+** icon, for **Server IP**, enter your local IP address; for **Server Port**, enter 8889. Scroll down a little bit and press **Click to select application(s)** then tick Arcaea. Now return and press the play button to start the VPN. Wait until it shows all good.
 
 Now your device is ready to connect to the private server!
 
