@@ -1,12 +1,19 @@
 # Reverse Engineering Arcaea
 
 !!! danger "Before starting"
-    This page is being in development. There will be no precise ETAs on the completion date.
+    This page is being actively worked on. Content shown below may be unfinished, unpolished, out of date, or inaccurate.
 
     This guide is **NOT** beginner-friendly and you will have to figure out a lot of things yourself. Only proceed if you know what you are doing.
 
 !!! note
-    I am using version 4.5.0c (arm32) for android and version 5.2.0 (arm64) for iOS in this tutorial.
+    Arcaea 4.5.0c (ARM32) is used for Android, while Arcaea 5.2.0 (ARM64) is used for iOS.
+
+!!! tip "About modifying instructions/NOPing"
+    A frequent thing you will be told to do throughout this guide is to NOP or edit an instruction. There are two main ways of doing so:
+
+    * Overwriting its hex address using a hex editor. This will requires a converter that allows converting ARM instruction to hex address and vice versa. As with NOPing an instruction, overwrite its hex address with `1F 20 03 D5` for ARM64 or `00 F0 20 E3` for ARM32. This is the recommended method.
+
+    * Using [Keypatch](https://github.com/keystone-engine/keypatch). This is the simplest method to directly modifying an instruction without having to touch the hex editor. Unfortunately, Keypath has not been updated to IDA Pro 8.x (yet), and even with older versions of IDA Pro setting it up and get it to work can be quite a pain.
 
 ## Removing hash verification
 !!! tip "Info"
@@ -25,7 +32,7 @@ Choose the first (Android) or second (iOS) xref entry.
 ![image](https://gist.github.com/assets/74685931/048a93fc-69f9-4da7-a79d-728ebbedb017)
 
 !!! note
-    In case neither of entries contains what is shown below, trying looking at other entries too.
+    In case neither of entries contains what is shown below, trying looking at other entries too. Please do note that if you are modding a version of Arcaea that uses content bundle (5.4.0+), you will not be able to find it as it does not exist.
 
 === "iOS"
     
@@ -162,7 +169,7 @@ Choose the first (Android) or second (iOS) xref entry.
 
 ## Patching scenecontrol
 !!! tip "Info"
-    Only if you want to experience the nearly everything that the game mechanics has to offer.
+    Make special charts effects (6 lanes, camera view, green arcs, etc..) work.
 
 === "Android"
 
