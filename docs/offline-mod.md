@@ -5,9 +5,6 @@
 
     This guide is **NOT** beginner-friendly and you will have to figure out a lot of things yourself. Only proceed if you know what you are doing.
 
-!!! note
-    Arcaea 4.5.0c (ARM32) is used for Android, while Arcaea 5.2.0 (ARM64) is used for iOS.
-
 !!! tip "About modifying instructions/NOPing"
     A frequent thing you will be told to do throughout this guide is to NOP or edit an instruction. There are two main ways of doing so:
 
@@ -115,49 +112,45 @@ Highlight it then switch back to the **IDA View** sub-window. With synchronizati
 
     And you're done with Android!
 
-=== "IOS"
+=== "IOS (new)"
 
-    I. Remove network required for playing beyond
+    Press **SHIFT + F12**, then **ALT + T** and search for `world_unlock`. Continue doing so until you found exactly this:
+
+    ![image](https://gist.github.com/assets/74685931/12e521b4-6c3b-40cd-a2a9-db971e158e3a)
+
+    Double-click onto it and xref it. Choose the last entry.
+
+    ![image](https://gist.github.com/assets/74685931/ad816148-ca64-4961-8870-783767f343cd)
+
+    Scroll down a little bit until you found this.
+
+    ![image](https://gist.github.com/assets/74685931/6937f14b-d637-434f-b7d9-95a16d1bf57a)
+
+    Change `CMP  W8, #3` to `CMP  W8, #5`.
+
+    While on the **IDA View** sub-window, press **ALT + T** and search for `dl_`, tick **Find all occurrences** and then search. Wait patiently until it completes.
+
+    ![image](https://gist.github.com/assets/74685931/0decc7d7-8864-449a-bfc5-ed2df02c57fe)
+
+    Choose the first entry.
     
-    Go to **Strings** sub-window, **Alt + T** to search for `You no longer` string, double-click, xref the string, scroll up until you find the `CMP` opcode like this in the image:
-    
-    ![image](https://gist.github.com/assets/89432931/660285b2-30a7-42e1-a8cf-8b7c608dadbe)
-    
-    Open the Keypatcher (**Ctrl + Alt + K**), modify the `#3` to `#5` and press Enter.
-    
-    ![image](https://gist.github.com/assets/89432931/59ab8bfb-ea32-4510-90c6-52ec8f85790f)
-    
-    II. Display Beyond difficulty
-    
-    Go to **Strings** sub-window, **Alt + T** to search for `songs/songlist` string, double-click, xref the second string, press **Alt + T** and type `temp` until you found this:
-    
-    ![image](https://gist.github.com/assets/89432931/6ef0fdfd-9b4f-4e64-a004-fa65780c4bd1)
-    
-    Click the `CMP` opcode and open the Keypatcher, modify the `#3` to `#5` and press Enter.
-    
-    ![image](https://gist.github.com/assets/89432931/5e1fd0f6-6807-443b-abfb-e8102c6e755d)
-    
-    III. Display the Start button
-    
-    Go to **Strings** sub-window, **Alt + T** to search for `start.png` string, double-click, xref the string and find the `CMP` opcode like this in the image:
-    
-    ![image](https://gist.github.com/assets/89432931/18ad6106-ee6e-4fa8-860f-7dab8f3b16d2)
-    
-    Click the `SUBS` opcode and open the Keypatcher, modify the `#3` to `#5` and press Enter.
-    
-    ![image](https://gist.github.com/assets/89432931/c70db255-e779-4661-9afa-7c84a365f7e5)
-    
-    IV. Scan 3.aff in the apk
-    
-    Go to **Strings** sub-window, **Alt + T** to search for `base.ogg` string, scroll up a bit to find the `dl_` string, xref the string until you found like this:
-    
-    ![image](https://gist.github.com/assets/89432931/a8d5d276-14e2-4822-9ca2-58a322829f39)
-    
-    Click the `CMP` opcode and open the Keypatcher, modify the `#3` to `#5` and press Enter.
-    
-    ![image](https://gist.github.com/assets/89432931/101b1817-55bd-485e-9eb6-234937c4995b)
-    
-    And you're done with iOS!
+    ![image](https://gist.github.com/assets/74685931/c3ab3092-b6c0-42a1-a9d9-340bc2747a0f)
+
+    Find this part and repeat the same steps as above.
+
+    ![image](https://gist.github.com/assets/74685931/e8480784-6a1d-461f-9b99-e50a69a4a717)
+
+    Return to the **Strings** sub-window and search for `You no longer have enough`, find exactly this and xref into it.
+
+    ![image](https://gist.github.com/assets/74685931/9e2cfed9-55bc-43d2-ada5-a5ea1245bcd3)
+
+    Scroll up until you found this part, then repeat the same as above.
+
+    ![image](https://gist.github.com/assets/74685931/341a27f8-edb2-4b59-aaa3-5a84981e258a)
+
+    Return to the **Strings** sub-window and search for `layouts/songselect/start.png`, xref it. After that, find this part and repeat the same steps as above.
+
+    ![image](https://gist.github.com/assets/74685931/77547ab3-6594-4160-b587-85d2be4a9baa)
 
 ## Patching scenecontrol
 !!! tip "Info"
