@@ -12,45 +12,32 @@
 !!! tip "Info"
     Allows making changes to the game files. **Only for pre-5.4.0 and Chinese versions.**
 
-In the **Strings** sub-window, press **ALT + T** and search for `songs/songlist` until you found this:
+In the **Functions** sub-window on the left, right click on **Function name** and choose **Quick filter**, then search for `.exit` (Android) or `_exit` (iOS).
 
-![image](https://gist.github.com/assets/89432931/67968339-082f-4b27-81a9-4984a7afdeee)
+![image](https://gist.github.com/assets/74685931/49292eca-76de-4e01-aba3-426f81ff252f)
 
-Double-click, **X** to xref the highlighted text.
+Double-click onto it, and on the **IDA View** sub-window, press **SPACE** to switch to graph view. You will be presented with something like this, click onto the highlighted button to bring up the xref (cross-reference) window.
 
-![image](https://gist.github.com/assets/89432931/45ff3678-8796-43dd-8483-f1be68d02958)
+![image](https://gist.github.com/assets/74685931/c56c9821-e639-41a7-ad8f-6c734b1e8e35)
 
-Choose the **second** xref (both for Android and iOS) and double-click.
+Choose the first (Android) or second (iOS) xref entry.
 
-![image](https://gist.github.com/assets/89432931/92a4071f-a984-4b1f-bffc-5264633899d1)
+![image](https://gist.github.com/assets/74685931/048a93fc-69f9-4da7-a79d-728ebbedb017)
 
-Press **F5** to open the **Pseudocode** sub-window. Scroll down until you see the first `goto LABEL_x` (for iOS) or `exit(0);` (for Android) like this:
+!!! note
+    In case neither of entries contains what is shown below, trying looking at other entries too.
 
-| Android | iOS |
-| :-----: | :-: |
-| ![image](https://gist.github.com/assets/89432931/db72f619-5723-4b89-b4a2-9d407b741d19) | ![image](https://gist.github.com/assets/89432931/702ac86a-6196-4613-9143-ad62274d51de) |
+=== "iOS"
+    
+    There are 9 xref entries consisting of 6 B.NE and 3 CBNZ instructions, NOP all of them until there are none left.
+
+    ![image](https://gist.github.com/assets/74685931/f9d95838-4b71-4512-b6a5-af302901c162)
 
 === "Android"
+    
+    There are 6 xref entries consistign o 3 B.NE and 3 CBNZ instructions, NOP all of them until there are none left.
 
-    After that, press **Tab** to switch to **IDA-View**. As you can see in **Android**, it have 3 CBNZs. **Ctrl + Alt + K** to open the Keypatcher. Type `nop` and press Enter.
-
-    | Before | After |
-    | :----: | :---: |
-    | ![image](https://gist.github.com/assets/89432931/86ad8424-eba0-4ae2-adaf-d0a8e824ba99) | ![image](https://gist.github.com/assets/89432931/6921707b-4e55-49e5-8097-dfc3e3c459fb) |
-
-    Patch the other 2 and you're good to go.
-
-=== "IOS"
-
-    Unlike Android, iOS have a total of **9** opcodes (6 `B.NE` and 3 `CBNZ`). Press **Tab** to switch to   **IDA-View**. Open the Keypatcher (**Ctrl + Alt + K**), type `nop` and press Enter. Do the same thing with the rest. You'll need to xref 8 other ones because it's hard to see.
-
-    ![image](https://gist.github.com/assets/89432931/1c324934-30b6-4799-8e76-d71974501c1a)
-
-    | Before | After |
-    | :----: | :---: |
-    | ![image](https://gist.github.com/assets/89432931/a6a335d6-238d-4105-a0a4-6c164c6a9ce8) | ![image](https://gist.github.com/assets/89432931/b1fb0871-72e8-47d2-b0ba-88dc0c938421) |
-
-    Apply the patches (**Edit > Patch program > Apply patches to input file...**) and you're done.
+    ![image](https://gist.github.com/assets/74685931/c491b324-8d95-4d8b-b179-287fbc5d8402)
 
 ## Removing lock icon
 !!! tip "Info"
