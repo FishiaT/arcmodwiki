@@ -112,7 +112,7 @@ Highlight it then switch back to the **IDA View** sub-window. With synchronizati
 
     And you're done with Android!
 
-=== "IOS (new)"
+=== "iOS"
 
     Press **SHIFT + F12**, then **ALT + T** and search for `world_unlock`. Continue doing so until you found exactly this:
 
