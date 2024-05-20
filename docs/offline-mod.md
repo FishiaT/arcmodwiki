@@ -42,7 +42,7 @@ Choose the first (Android) or second (iOS) xref entry.
 
 === "Android"
     
-    There are 6 xref entries consistign o 3 B.NE and 3 CBNZ instructions, NOP all of them until there are none left.
+    There are 6 xref entries consisting of 3 B.NE and 3 CBNZ instructions, NOP all of them until there are none left.
 
     ![image](https://gist.github.com/assets/74685931/c491b324-8d95-4d8b-b179-287fbc5d8402)
 
