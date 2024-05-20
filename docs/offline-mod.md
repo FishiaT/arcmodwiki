@@ -50,30 +50,22 @@ Choose the first (Android) or second (iOS) xref entry.
 !!! tip "Info"
     Remove the lock icon on locked packs. Purely for aesthetic purposes.
 
-=== "Android"
-    In the **Strings** sub-window, search for `lock_icon`, xref, **F5** to open the **Pseudocode** sub-window and scroll up until you found this:
+Press **SHIFT + F12**, then **ALT + T** and search for `lock_icon`. Double-click onto it and xref it. After that, press **TAB** or **F5** to view its pseudo-code, you will see something like this:
 
-    ![image](https://gist.github.com/assets/89432931/0ba1b62c-4428-4d18-90e0-4018aec1ba3f)
+![image](https://gist.github.com/assets/74685931/18cecc88-a2c8-44ba-ab0b-439b560a1ceb)
 
-    Double-click to go to the highlighted address, click the first line in **Pseudocode** sub-window, press **Tab** to move to **IDA-View**, switch to **Hex View** and press **F2** to edit. Type `01 20 70 47` (no spacing) (which is MOV R0, #1 and BX LR).
+Find this structure and highlight `v132` (name may be different), then xref it, Choose the first entry.
 
-    | Before | After |
-    | :----: | :---: |
-    | ![image](https://gist.github.com/assets/89432931/81419fd6-64fb-4ef4-82b2-ca590c3accdc) | ![image](https://gist.github.com/assets/89432931/ed05346b-e81d-4529-85fe-2486f836b666) |
+![image](https://gist.github.com/assets/74685931/9c2c9bd8-ad5f-4f15-8939-d5264add4e40)
 
-    Once you're done, press **F2** again to save it.
+Double-click onto the function call to view its pseudo-code. Focus on this part.
 
-=== "IOS"
+![image](https://gist.github.com/assets/74685931/55f6a995-5064-4640-bc10-2764bf7babca)
 
-    In the **Strings** sub-window, search for `lock_icon`, xref, **F5** to open the **Pseudocode** sub-window and scroll up until you found this: 
+Highlight it then switch back to the **IDA View** sub-window. With synchronization enabled, modify `MOV  W8, 0` to `MOV  W8, 1`. Repeat this for both of the variables. After doing so, all `v3` variables should have `1` as its value.
 
-    Double-click to go to the highlighted address, click the first line in **Pseudocode** sub-window, press **Tab** to move to **IDA-View**, switch to **Hex View** and press **F2** to edit. Type `20 00 80 52 C0 03 5F D6` (no spacing) (which is MOV W0, #1 and RET).
+![image](https://gist.github.com/assets/74685931/53581ad7-dfa6-449d-827c-f317abb09869)
 
-    | Before | After |
-    | :----: | :---: |
-    | ![image](https://gist.github.com/assets/89432931/e5817858-09f1-4eb3-9d0c-6b448b9f0cb6) | ![image](https://gist.github.com/assets/89432931/f5af100c-2f48-42cf-84e3-cdff28790890) |
-
-    Once you're done, press **F2** again to save it.
 
 ## Removing beyond restrictions
 !!! tip "Info"
