@@ -39,7 +39,7 @@ Download the appropriate patch for your version:
 === "iOS"
 
     ??? note "5.6.3"
-        Being updated, please come back later!
+        [Download](https://github.com/FishiaT/arcmodwiki/releases/download/patches/ios_5.6.3.xdelta){ .md-button }
 
     ??? note "5.6.1"
         [Download](https://github.com/FishiaT/arcmodwiki/releases/download/patches/ios_5.6.1.xdelta){ .md-button }

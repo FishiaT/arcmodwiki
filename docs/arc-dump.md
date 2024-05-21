@@ -22,7 +22,7 @@ Install [TrollDecrypt](https://github.com/donato-fiore/TrollDecrypt/releases/) o
 ### Using DumpDecrypter
 
 !!! tip "Info"
-    An alternative to TrollDecrypt for devices that is not supported by TrollStore. **May not work with rootless jailbreaks (e.g. Dopamine, palera1n).
+    An alternative to TrollDecrypt for devices that is not supported by TrollStore. **May not work with rootless jailbreaks (e.g. Dopamine, palera1n)**.
 
 Open Sileo or any package managers that you like, add this repository: `https://repo.tuandb.name.vn`. After that, install **DumpDecrypter** from it.
 
