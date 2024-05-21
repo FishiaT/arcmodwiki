@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="index.html">
+        <link rel="prev" href="arc-dump.html">
       
       
         <link rel="next" href="offline-mod.html">
@@ -234,6 +234,26 @@
   
   <span class="md-ellipsis">
     Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="arc-dump.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Obtaining Arcaea APK/IPA
   </span>
   
 
@@ -590,7 +610,7 @@
 <h1 id="setting-up-your-own-arcaea-server">Setting up your own Arcaea server</h1>
 <div class="admonition note">
 <p class="admonition-title">Before starting</p>
-<p>Make sure you have a copy of Arcaea APK/IPA file ready.</p>
+<p>Make sure you have dumped Arcaea APK/IPA from your device before proceeding.</p>
 </div>
 <h3 id="obtaining-content-bundle">Obtaining content bundle</h3>
 <div class="admonition note">
@@ -628,22 +648,26 @@
 <p>Android will receive patches for newer versions slower than iOS. As an alternative, try <a href="#manual-patching-advanced">patching it</a> yourself or wait until Android patches is made.</p>
 </div>
 <p>Download the appropriate patch for your version:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="ios" name="__tabbed_1" type="radio" /><input id="android" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="ios">iOS</label><label for="android">Android</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <details class="note">
-<summary>iOS 5.6.1 (latest as of 5/7/2024)</summary>
+<summary>5.6.3</summary>
+<p>Being updated, please come back later!</p>
+</details>
+<details class="note">
+<summary>5.6.1</summary>
 <p><a class="md-button" href="https://github.com/FishiaT/arcmodwiki/releases/download/patches/ios_5.6.1.xdelta">Download</a></p>
 </details>
+</div>
+<div class="tabbed-block">
 <details class="note">
-<summary>iOS 5.6.0</summary>
-<p><a class="md-button" href="https://github.com/FishiaT/arcmodwiki/releases/download/patches/ios_5.6.0.xdelta">Download</a></p>
+<summary>5.6.3</summary>
+<p>Being updated, please come back later!</p>
 </details>
-<details class="note">
-<summary>Android 5.6.0</summary>
-<p><a class="md-button" href="https://github.com/FishiaT/arcmodwiki/releases/download/patches/android_5.6.0.xdelta">Download</a></p>
-</details>
-<details class="note">
-<summary>Android 5.6.0c</summary>
-<p><a class="md-button" href="https://github.com/FishiaT/arcmodwiki/releases/download/patches/android_5.6.0c.xdelta">Download</a></p>
-</details>
+</div>
+</div>
+</div>
 <p>Now open DeltaPatcher, you will be presented with an interface like this:</p>
 <p><img alt="image" src="https://gist.github.com/assets/74685931/3d449457-96f5-41b5-8c74-d66328d66418" /></p>
 <p>Select the appropriate <em>unmodified</em> executable, and the appropriate patch, then press <strong>Apply patch</strong>.</p>
@@ -771,7 +795,7 @@
 <p><strong>LINKPLAY_HOST</strong> needs to be the same as the IP address you have set in the <strong>HOST</strong> variable earlier <em>unless</em> the <strong>SET_LINKPLAY_SERVER_AS_SUB_PROCESS</strong> variable is set to <code>False</code>, at which you will need to specify a separate IP address for the link play server.</p>
 </li>
 <li>
-<p>For <strong>LINKPLAY_AUTHENTICATION</strong>, you can leave it as-is for use anything you want.</p>
+<p>For <strong>LINKPLAY_AUTHENTICATION</strong>, you can leave it as-is or type in anything you want.</p>
 </li>
 </ul>
 <p>If you do not want to use link play functionality, the <strong>LINKPLAY_HOST</strong> variable needs to be an empty string.</p>
@@ -790,6 +814,7 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The content bundle in the server must be the same as the one existing in your Arcaea client (the metadata and content MUST match) as otherwise you will encounter issues when trying to login. If you change the content bundle in the server, the one on the client should be redownloaded.</p>
+<p>To avoid issues, use the content bundle that you have obtained <a href="#obtaining-content-bundle">earlier</a>.</p>
 </div>
 <ul>
 <li>
@@ -805,19 +830,25 @@
 <p class="admonition-title">Note</p>
 <p>Your phone and your computer (the one that runs the server) MUST be connected to the same network for the server to work.</p>
 </div>
-<p><strong><em>iOS</em></strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="ios_1" name="__tabbed_2" type="radio" /><input id="android_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="ios_1">iOS</label><label for="android_1">Android</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>Open the <strong>Settings</strong> app, go to <strong>Wi-Fi</strong> settings, press the <strong>!</strong> icon on the connected network, scroll down until you found the <strong>HTTP Proxy</strong> settings. In the <strong>Configure Proxy</strong> settings, select <strong>Manual</strong> and fill in the <strong>Server</strong> field which is your local IP address and the <strong>Port</strong> field which is 8888. Now press <strong>Save</strong> and (optionally) turn off and reconnect to your Wi-Fi network.</p>
 <p>Now on your computer, return to Charles and go to <strong>Help &gt; SSL Proxying &gt; Install Charles Root Certificate on a Mobile Device or Remote Browser</strong>. A window like this will show up:</p>
 <p><img alt="image" src="https://gist.github.com/assets/74685931/c9f85e1c-9ef6-4c22-9113-79551ab73fed" /></p>
-<p>Follow the steps listed in it to install the Charles certificate onto your device.</p>
-<p><strong><em>Android</em></strong></p>
+<p>Follow the steps listed in it to install the Charles certificate onto your device. You will also need to go to <strong>Settings &gt; General &gt; About &gt; Certificate Trust Settings</strong> and enable full trust for the newly added certificate for it to take affect.</p>
+</div>
+<div class="tabbed-block">
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Android is finicky when it comes to proxy servers. Things may not work correctly or even at all.</p>
+<p>From limited testing, Android is finicky when it comes to maintaining connection to proxy server. Things may not work correctly or even at all. If you have a way to fix this, feel free to contribute!</p>
 </div>
-<p>First and foremost, go back to Charles and go to <strong>Help &gt; SSL Proxying &gt; Save Charles Root Certificate...</strong> Save the .pem file somewhere. Rename the .pem extension to .crt. Now transfer this file to your Android device and install it to both categories.</p>
+<p>Go back to Charles and go to <strong>Help &gt; SSL Proxying &gt; Save Charles Root Certificate...</strong> Save the .pem file somewhere. Rename the .pem extension to .crt. Now transfer this file to your Android device and install it to both categories.</p>
 <p>On Android, you will need to rely on a proxifier app such as <a href="https://play.google.com/store/apps/details?id=com.lazybean.vpnperapp">VProxid</a> or <a href="https://play.google.com/store/apps/details?id=com.lazybean.socksperapp">RProxid</a> (requires root, recommended). You need to connect through the SOCKS5 proxy server.</p>
 <p>After installing either of the proxifier app, open it and press the <strong>+</strong> icon, for <strong>Server IP</strong>, enter your local IP address; for <strong>Server Port</strong>, enter 8889. Scroll down a little bit and press <strong>Click to select application(s)</strong> then tick Arcaea. Now return and press the play button to start the VPN. Wait until it shows all good.</p>
+</div>
+</div>
+</div>
 <p>Now your device is ready to connect to the private server!</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -884,7 +915,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="assets/javascripts/bundle.a7c05c9e.min.js"></script>
