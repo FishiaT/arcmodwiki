@@ -23,6 +23,7 @@ markdown_extensions:
       pygments_lang_class: true
 nav:
   - Home: index.md
+  - Obtaining Arcaea APK/IPA: arc-dump.md
   - Private Server: private-server.md
   - Reverse Engineering: offline-mod.md
   - Custom Charts & Packs: custom-charts-packs.md

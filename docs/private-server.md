@@ -1,7 +1,7 @@
 # Setting up your own Arcaea server
 
 !!! note "Before starting"
-    Make sure you have a copy of Arcaea APK/IPA file ready.
+    Make sure you have dumped Arcaea APK/IPA from your device before proceeding.
 
 ### Obtaining content bundle
 !!! note
@@ -36,17 +36,24 @@ Copy the `dltemp` folder to your computer. Inside it should contain 2 files with
 
 Download the appropriate patch for your version:
 
-??? note "iOS 5.6.1 (latest as of 5/7/2024)"
-    [Download](https://github.com/FishiaT/arcmodwiki/releases/download/patches/ios_5.6.1.xdelta){ .md-button }
+=== "iOS"
 
-??? note "iOS 5.6.0"
-    [Download](https://github.com/FishiaT/arcmodwiki/releases/download/patches/ios_5.6.0.xdelta){ .md-button }
+    ??? note "iOS 5.6.3 (latest as of 5/21/2024)"
+        Being updated, please come back later!
 
-??? note "Android 5.6.0"
-    [Download](https://github.com/FishiaT/arcmodwiki/releases/download/patches/android_5.6.0.xdelta){ .md-button }
+    ??? note "iOS 5.6.1"
+        [Download](https://github.com/FishiaT/arcmodwiki/releases/download/patches/ios_5.6.1.xdelta){ .md-button }
 
-??? note "Android 5.6.0c"
-    [Download](https://github.com/FishiaT/arcmodwiki/releases/download/patches/android_5.6.0c.xdelta){ .md-button }
+=== "Android"
+
+    ??? note "Android 5.6.3"
+        Being updated, please come back later!
+
+    ??? note "Android 5.6.3c"
+        !!! warning
+            You may encounter issues when trying to use this version. Please use the regular (Google Play) version of Arcaea instead.
+
+        Being updated, please come back later!
 
 Now open DeltaPatcher, you will be presented with an interface like this:
 
