@@ -70,6 +70,8 @@ Open the appropriate executable file for your operating system, ***and wait for 
 
 After the initial auto-analysis, Press **SHIFT + F12** and wait for the string list to be generated (again, this may take a while.)
 
+=== "Pre 5.6.3/iOS"
+
 In the **Strings** sub-window, press **ALT + T** and search for `cookieFiIe.txt` until you found exactly this.
 
 ![image](https://gist.github.com/assets/74685931/3203879e-367b-4bdc-a834-d24db72442a6)
@@ -112,7 +114,9 @@ Highlight this part, and NOP it like above:
 
 ![image](https://gist.github.com/assets/74685931/73ad185a-67e5-4cc2-b439-d122289c24d7)
 
-After that, apply the patches and you are done!
+=== "5.6.3 or newer (Android only)
+
+*Being updated, please return later.*
 
 After patching the executable, save the file and recompress the APK/IPA file. For Android, **you must resign the APK file before installing it onto your device.** You may now sideload it onto your device using ADB, AppSync Unified (*not recommended due to potential crashes and issues.*), AltStore (& friends) or TrollStore (*recommended for supported devices.*)
 

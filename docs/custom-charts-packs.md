@@ -1,21 +1,23 @@
 # Adding custom charts/packs
 
 !!! danger "Work in progress"
-    This page is being actively worked on. Contributions of any kind are much appreciated. The content below are unfinished.
+    This page is being worked on. Contributions of any kind are much appreciated. The content below are unfinished.
 
 !!! note "Before starting"
-    This guide requires a functional private server already set up and running.
+    This guide requires a functional private server already set up and running. For more details please refer to the [Private Server](private-server.md) page.
 
-### Unpacking the content bundle
+### The content bundle
 !!! note
     Only for Arcaea 5.4.0 or newer and non-Chinese versions.
 
-### songlist/packlist files
+### The APK/IPA file
+!!! danger
+    Only for Arcaea 5.3.1 or older and Chinese versions (e.g. 5.6.3c). Requires removing hash protection before modification can be done. Refer to the [appropriate Reverse Engineering](offline-mod.md#removing-hash-verification) page for more details.
 
-### Private server database
+### Meta files
+
+### Server database
 
 ### Custom packs
 
 ### Custom charts
-
-### Repacking the content bundle
