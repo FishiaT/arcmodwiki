@@ -334,6 +334,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Android">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dumping-split-apks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dumping split APKs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merging-the-apks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Merging the APKs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -470,6 +494,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Android">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dumping-split-apks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dumping split APKs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merging-the-apks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Merging the APKs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -488,11 +536,7 @@
 
 
 <h1 id="obtaining-arcaea-apkipa">Obtaining Arcaea APK/IPA</h1>
-<div class="admonition danger">
-<p class="admonition-title">Work in progress</p>
-<p>This page is being actively worked on. Contributions of any kind are much appreciated.</p>
-</div>
-<p>Before proceeding with modding Arcaea, its APK/IPA file must be dumped from your device. Depending on your operating system, dumping procedure will be different.</p>
+<p>Before proceeding with modding Arcaea, its APK/IPA file must be dumped from your device. Depending on your operating system, the procedure will be different.</p>
 <h2 id="ios">iOS</h2>
 <div class="admonition warning">
 <p class="admonition-title">Before starting</p>
@@ -513,10 +557,24 @@
 <p>Open Sileo or any package managers that you like, add this repository: <code>https://repo.tuandb.name.vn</code>. After that, install <strong>DumpDecrypter</strong> from it.</p>
 <p>Open <strong>DumpDecrypter</strong>, switch to the <strong>Settings</strong> tab and enable all available options. Then return to the <strong>AppList</strong> tab and select Arcaea, press <strong>Continue</strong> when prompted and wait for the decryption process to complete. Arcaea will automatically open and then close shortly after. When it finishes, press <strong>Go to Filza to view</strong> (Filza must be installed from the BigBoss repository beforehand) then copy the resulting IPA to your PC and you are done!</p>
 <h2 id="android">Android</h2>
-<div class="admonition danger">
-<p class="admonition-title">Work in progress</p>
-<p>This section is being worked on.</p>
+<div class="admonition tip">
+<p class="admonition-title">Info</p>
+<p>Requires ADB (Android Debug Bridge) and appropriate ADB/USB drivers for your phone (not required on Linux, Windows 10 or newer will most likely do this automatically for you) installed which is included in the Android SDK by default. If you do not want to install the entire platform SDK, consider installing <a href="https://github.com/K3V1991/ADB-and-FastbootPlusPlus/releases">this</a>.</p>
 </div>
+<h3 id="dumping-split-apks">Dumping split APKs</h3>
+<p>Open Command Prompt or your favorite Terminal Emulator, then with your phone connected to your PC via USB, run <code>adb shell pm path moe.low.arc</code> to fetch all paths to Arcaea APKs, it should look like this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/aa2662ea-709b-466a-ac59-6ec8b8d10c9e" /></p>
+<p>This is called <a href="https://developer.android.com/studio/build/configure-apk-splits">split APKs</a>, a new simplified APK format that split an APK file to multiple smaller APKs (e.g. one APK containing the base data, one containing the actual code, one containing assets and so on...). Normally, this format will help for more efficient application installation from Google Play due to not requiring to download a huge APK file; however, this will make it hard to mod Arcaea, so we must merge them into a normal APK file before proceeding.</p>
+<p>Copy the path of <em>each</em> APK files, and run <code>adb pull &lt;path to apk&gt;</code>. Repeat this for the other APKs too.</p>
+<h3 id="merging-the-apks">Merging the APKs</h3>
+<div class="admonition tip">
+<p class="admonition-title">Info</p>
+<p>A tool called <a href="https://drive.google.com/file/d/1UnKr1SnX14RL_e9IpcpQhA6AnYwB0fjL/view">SAP</a> (Split APKs Package) will be used for this purpose. You may also be able to use any other similar functioning tools as well.</p>
+</div>
+<p>Download and open SAP, you will be presented with an interface like this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/8834735c-08b4-4823-9b9b-027663fd4a19" /></p>
+<p>Place all of your split APKs into a folder, then click onto <strong>Directory</strong> and select that folder. If however you have a XAPK file instead, click on <strong>Archive</strong> and select that XAPK file.</p>
+<p>Make sure to tick the <strong>Sign</strong> checkbox, then click <strong>Start</strong> and wait as this may take a while.</p>
 
 
 

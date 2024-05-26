@@ -353,9 +353,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#removing-beyond-locks" class="md-nav__link">
+  <a href="#removing-beyond-restrictions" class="md-nav__link">
     <span class="md-ellipsis">
-      Removing beyond locks
+      Removing beyond restrictions
     </span>
   </a>
   
@@ -452,9 +452,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#removing-beyond-locks" class="md-nav__link">
+  <a href="#removing-beyond-restrictions" class="md-nav__link">
     <span class="md-ellipsis">
-      Removing beyond locks
+      Removing beyond restrictions
     </span>
   </a>
   
@@ -496,33 +496,558 @@
 <h1 id="reverse-engineering-arcaea">Reverse Engineering Arcaea</h1>
 <div class="admonition danger">
 <p class="admonition-title">Before starting</p>
-<p>This page is being rewritten. There will be no precise ETAs on the completion date.</p>
+<p>This page is being actively worked on. Content shown below may be unfinished, unpolished, out of date, or inaccurate.</p>
 <p>This guide is <strong>NOT</strong> beginner-friendly and you will have to figure out a lot of things yourself. Only proceed if you know what you are doing.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">About modifying instructions/NOPing</p>
+<p>A frequent thing you will be told to do throughout this guide is to NOP or edit an instruction. There are two main ways of doing so:</p>
+<ul>
+<li>
+<p>Overwriting its hex address using a hex editor. This will requires a converter that allows converting ARM instruction to hex address and vice versa. As with NOPing an instruction, overwrite its hex address with <code>1F 20 03 D5</code> for ARM64 or <code>00 F0 20 E3</code> for ARM32. This is the recommended method.</p>
+</li>
+<li>
+<p>Using <a href="https://github.com/keystone-engine/keypatch">Keypatch</a>. This is the simplest method to directly modifying an instruction without having to touch the hex editor. Unfortunately, Keypatch has not been updated to IDA Pro 8.x (yet), and even with older versions of IDA Pro setting it up and get it to work can be quite a pain.</p>
+</li>
+</ul>
 </div>
 <h2 id="removing-hash-verification">Removing hash verification</h2>
 <div class="admonition tip">
 <p class="admonition-title">Info</p>
 <p>Allows making changes to the game files. <strong>Only for pre-5.4.0 and Chinese versions.</strong></p>
 </div>
+<p>In the <strong>Functions</strong> sub-window on the left, right click on <strong>Function name</strong> and choose <strong>Quick filter</strong>, then search for <code>.exit</code> (Android) or <code>_exit</code> (iOS).</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/49292eca-76de-4e01-aba3-426f81ff252f" /></p>
+<p>Double-click onto it, and on the <strong>IDA View</strong> sub-window, press <strong>SPACE</strong> to switch to graph view. You will be presented with something like this, click onto the highlighted button to bring up the xref (cross-reference) window.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/c56c9821-e639-41a7-ad8f-6c734b1e8e35" /></p>
+<p>Choose the first (Android) or second (iOS) xref entry.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/048a93fc-69f9-4da7-a79d-728ebbedb017" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In case neither of entries contains what is shown below, trying looking at other entries too. Please do note that if you are modding a version of Arcaea that uses content bundle (5.4.0+), you will not be able to find it as it does not exist.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="ios" name="__tabbed_1" type="radio" /><input id="android" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="ios">iOS</label><label for="android">Android</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>There are 9 xref entries consisting of 6 B.NE and 3 CBNZ instructions, NOP all of them until there are none left.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/f9d95838-4b71-4512-b6a5-af302901c162" /></p>
+</div>
+<div class="tabbed-block">
+<p>There are 6 xref entries consisting of 3 B.NE and 3 CBNZ instructions, NOP all of them until there are none left.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/c491b324-8d95-4d8b-b179-287fbc5d8402" /></p>
+</div>
+</div>
+</div>
 <h2 id="removing-lock-icon">Removing lock icon</h2>
 <div class="admonition tip">
 <p class="admonition-title">Info</p>
 <p>Remove the lock icon on locked packs. Purely for aesthetic purposes.</p>
 </div>
-<h2 id="removing-beyond-locks">Removing beyond locks</h2>
+<p>Press <strong>SHIFT + F12</strong>, then <strong>ALT + T</strong> and search for <code>lock_icon</code>. Double-click onto it and xref it. After that, press <strong>TAB</strong> or <strong>F5</strong> to view its pseudo-code, you will see something like this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/18cecc88-a2c8-44ba-ab0b-439b560a1ceb" /></p>
+<p>Find this structure and highlight <code>v132</code> (name may be different), then xref it, Choose the first entry.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/9c2c9bd8-ad5f-4f15-8939-d5264add4e40" /></p>
+<p>Double-click onto the function call to view its pseudo-code. Focus on this part.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/55f6a995-5064-4640-bc10-2764bf7babca" /></p>
+<p>Highlight it then switch back to the <strong>IDA View</strong> sub-window. With synchronization enabled, modify <code>MOV  W8, 0</code> to <code>MOV  W8, 1</code>. Repeat this for both of the variables. After doing so, all <code>v3</code> variables should have <code>1</code> as its value.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/53581ad7-dfa6-449d-827c-f317abb09869" /></p>
+<h2 id="removing-beyond-restrictions">Removing beyond restrictions</h2>
 <div class="admonition tip">
 <p class="admonition-title">Info</p>
 <p>Allows playing Beyond (BYD) difficulty on charts that have it.</p>
 </div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="android_1" name="__tabbed_2" type="radio" /><input id="ios_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="android_1">Android</label><label for="ios_1">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>I. Remove network required for playing beyond</p>
+<p>Go to <strong>Strings</strong> sub-window, <strong>Alt + T</strong> to search for <code>You no longer</code> string, double-click, xref the string, scroll up until you find the <code>SUBS</code> opcode like this in the image:</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/597c718e-70c2-41a3-bf75-2e0b4bc7909f" /></p>
+<p>Open the Keypatcher (<strong>Ctrl + Alt + K</strong>), modify the <code>#3</code> to <code>#5</code> and press Enter.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/14a7949c-b869-4554-819d-fe2fbf88546d" /></p>
+<p>II. Display Beyond difficulty</p>
+<p>Go to <strong>Strings</strong> sub-window, <strong>Alt + T</strong> to search for <code>songs/songlist</code> string, double-click, xref the first string, press <strong>Alt + T</strong> and type <code>temp</code> until you found this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/7ae548ee-ec8b-474f-8530-f6a167fa0f97" /></p>
+<p>Click the <code>CMP</code> opcode and open the Keypatcher, modify the <code>#3</code> to <code>#5</code> and press Enter.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/843dd85f-d80f-40d0-ba50-9967d6ef4b38" /></p>
+<p>III. Display the Start button</p>
+<p>Go to <strong>Strings</strong> sub-window, <strong>Alt + T</strong> to search for <code>start.png</code> string, double-click, xref the string and find the <code>SUBS</code> opcode like this in the image:</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/c72041df-d0fe-4350-9842-2af4797352e8" /></p>
+<p>Click the <code>SUBS</code> opcode and open the Keypatcher, modify the <code>#3</code> to <code>#5</code> and press Enter.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/dba634d9-b632-43c3-a2f5-af978b022269" /></p>
+<p>IV. Scan 3.aff in the apk</p>
+<p>Go to <strong>Strings</strong> sub-window, <strong>Alt + T</strong> to search for <code>songs/songlist</code> string, scroll up a bit to find the <code>dl_</code> string, xref the string until you found like this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/bbe1605f-3132-4ce2-b012-c03db1f532a3" /></p>
+<p>Click the <code>CMP</code> opcode and open the Keypatcher, modify the <code>#3</code> to <code>#5</code> and press Enter.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/a5a44a42-55bb-48bb-ac01-4e831ae71d40" /></p>
+<p>And you're done with Android!</p>
+</div>
+<div class="tabbed-block">
+<p>Press <strong>SHIFT + F12</strong>, then <strong>ALT + T</strong> and search for <code>world_unlock</code>. Continue doing so until you found exactly this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/12e521b4-6c3b-40cd-a2a9-db971e158e3a" /></p>
+<p>Double-click onto it and xref it. Choose the last entry.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/ad816148-ca64-4961-8870-783767f343cd" /></p>
+<p>Scroll down a little bit until you found this.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/6937f14b-d637-434f-b7d9-95a16d1bf57a" /></p>
+<p>Change <code>CMP  W8, #3</code> to <code>CMP  W8, #5</code>.</p>
+<p>While on the <strong>IDA View</strong> sub-window, press <strong>ALT + T</strong> and search for <code>dl_</code>, tick <strong>Find all occurrences</strong> and then search. Wait patiently until it completes.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/0decc7d7-8864-449a-bfc5-ed2df02c57fe" /></p>
+<p>Choose the first entry.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/c3ab3092-b6c0-42a1-a9d9-340bc2747a0f" /></p>
+<p>Find this part and repeat the same steps as above.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/e8480784-6a1d-461f-9b99-e50a69a4a717" /></p>
+<p>Return to the <strong>Strings</strong> sub-window and search for <code>You no longer have enough</code>, find exactly this and xref into it.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/9e2cfed9-55bc-43d2-ada5-a5ea1245bcd3" /></p>
+<p>Scroll up until you found this part, then repeat the same as above.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/341a27f8-edb2-4b59-aaa3-5a84981e258a" /></p>
+<p>Return to the <strong>Strings</strong> sub-window and search for <code>layouts/songselect/start.png</code>, xref it. After that, find this part and repeat the same steps as above.</p>
+<p><img alt="image" src="https://gist.github.com/assets/74685931/77547ab3-6594-4160-b587-85d2be4a9baa" /></p>
+</div>
+</div>
+</div>
 <h2 id="patching-scenecontrol">Patching scenecontrol</h2>
 <div class="admonition tip">
 <p class="admonition-title">Info</p>
-<p>Only if you want to experience the April Fools charts to its fullest.</p>
+<p>Make special charts effects (6 lanes, camera view, green arcs, etc..) work.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="android_2" name="__tabbed_3" type="radio" /><input id="ios_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="android_2">Android</label><label for="ios_2">IOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>In the <strong>Strings</strong> sub-window, search for <code>9821191</code>, xref, <strong>F5</strong> to open the <strong>Pseudocode</strong> sub-window and scroll down until you found this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/c9bac766-1335-4846-9a06-64aa5d5654a8" /></p>
+<p>I. ArcNote (Still wondering what does it do)</p>
+<p>Double-click the highlighted address, <strong>Alt + T</strong> and search <code>148</code>. <strong>Tab</strong> to switch to <strong>IDA-View</strong> and see something like this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Pseudocode</th>
+<th style="text-align: center;">IDA-View</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/81709ea8-eb45-4fca-8b71-5a54895527e6" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/f5e0cf9a-5822-47f4-8f9e-81124a98491b" /></td>
+</tr>
+</tbody>
+</table>
+<p>Click on the <code>LDRB.W</code> opcode, open the Keypatcher and type <code>nop.w</code>. Do the same thing with <code>CBZ</code> opcode but use <code>nop</code>.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/87d668cb-f768-431b-b011-71086f25206f" /></p>
+<p>II. Camera</p>
+<p>Switch to <strong>Pseudocode</strong> view, <strong>Ctrl + T</strong> to search the next value <code>148</code>. <strong>Tab</strong> to switch to <strong>IDA-View</strong> and see something like this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Pseudocode</th>
+<th style="text-align: center;">IDA-View</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/e4e5cb96-e306-48b7-9d71-581a3d0578fd" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/91f54a48-7493-46d8-a8d8-c8f32e0ca85c" /></td>
+</tr>
+</tbody>
+</table>
+<p>Click on the first <code>LDRB.W</code> opcode, open the Keypatcher and type <code>nop.w</code>. Do the same thing with <code>BEQ.W</code> opcode.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/ff6c7f01-f39c-4e2a-9450-1abdd6d1aacb" /></p>
+<p>III. Scenecontrol</p>
+<p>Switch to <strong>Pseudocode</strong> view, <strong>Ctrl + T</strong> to search the next value <code>148</code>. <strong>Tab</strong> to switch to <strong>IDA-View</strong> and see something like this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Pseudocode</th>
+<th style="text-align: center;">IDA-View</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/8d105bbf-24d6-492e-b162-bbd5b4743532" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/c399a24a-68ce-4cdf-89f1-0f55de8dbfd6" /></td>
+</tr>
+</tbody>
+</table>
+<p>Click on the <code>LDRB.W</code> opcode, open the Keypatcher and type <code>nop.w</code>. Do the same thing with <code>CBNZ</code> opcode but use <code>nop</code>.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/b99ce389-a7ec-44ad-a0e3-f607531fdf61" /></p>
+<p>IV. Arcahv string check</p>
+<p>While at the <a href="#scenecontrol">Scenecontrol</a> in <strong>Pseudocode</strong> view, scroll down until you see this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/a052fdcf-b01b-4848-9c6f-fc7b4399f96d" /></p>
+<p>Switch to <strong>IDA-View</strong>, use the Keypatcher and <code>nop.w</code> the <code>BEQ.W</code> opcode.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/67e7bfc5-bfa5-4976-b780-83bd8232431c" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/87902f3b-89cd-461f-bb65-1732168057d3" /></td>
+</tr>
+</tbody>
+</table>
+<p>V. Green arc</p>
+<p>Switch to <strong>Pseudocode</strong> view, scroll down until you found this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/f7e5d77c-9c8d-4dec-994b-ca8883c3f8bc" /></p>
+<p>Double-click the highlighted address, switch to <strong>IDA-View</strong>. Click on <code>LDRB.W</code> opcode, use the Keypatcher and <code>nop.w</code> it. After that, use the Keypatcher again to modify the <code>#2</code> to <code>#10</code> or any number higher than 3 (3 is white arc but they haven't used it. Not the wide skynote in HIVEMIND -INTERLINKED- ). Do the same thing with the second <code>#2</code>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/217b6b99-31de-4723-bf88-3a31399e38c4" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/37151755-40de-4d37-8c0d-22e3847e4c55" /></td>
+</tr>
+</tbody>
+</table>
+<p>VI. The Switch (this will be used for others as well)</p>
+<p>I literally don't know why lowiro do this but ok</p>
+<p>In the <strong>Strings</strong> sub-window, press <strong>ALT + T</strong> and search for <code>gameend</code>, double-click, xref and scroll up until you found this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/7388c9fb-6cba-4ea2-8ffd-c51a5eadb987" /></p>
+<p>Double-click the highlighted address, switch to <strong>Hex View</strong>, <strong>F2</strong> to edit and type <code>4F F0 01</code> (no spacing) then save it. It should be like this after editing:</p>
+<p><strong>Hex View</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/7debb590-e15c-4835-ac20-73eb515fd305" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/a7d3d24a-5354-4e7e-9b1d-0217a7e306af" /></td>
+</tr>
+</tbody>
+</table>
+<p><strong>IDA-View</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/5f0b8fee-1c02-41b1-8e89-603e17a71f31" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/3b6babd9-7c56-420f-9810-0b6ff7a12e9f" /></td>
+</tr>
+</tbody>
+</table>
+<p>VII. Remove Skynote and Arc restrictions (over y2.1)</p>
+<p>Note: Not recommended having these 2 modded because it'll mess up a part in Singularity VVVIP. See here: https://youtu.be/3SBjWP2JEXc?t=93.</p>
+<p>a. Skynote</p>
+<p>Xref <a href="#the-switch-this-will-be-used-for-others-as-well">The Switch</a>, switch to <strong>IDA-View</strong> and scroll up a bit until you found this: </p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/e05d6b64-98ba-4626-b1c0-9126f2ed4f39" /></p>
+<p>Use the Keypatcher and <code>nop.w</code> it.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/a130119d-a642-4290-a3c9-43deaa58d335" /></p>
+<p>b. Arc</p>
+<p>In the <strong>Pseudocode</strong> view, scroll up, xref <a href="#Skynote">The Skynote</a> first address, scroll up again, xref the first address, switch to <strong>IDA-View</strong>, AND scroll down until you see this: </p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/25999e38-23f4-43c8-8fee-e41178db2a25" /></p>
+<p>Click the 550.0, switch to <strong>Hex View</strong>, click the value <code>80</code>, press <strong>F2</strong> to edit and type <code>ef6749</code> then save it. It should be like this after editing:</p>
+<p><strong>Hex View</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/25999e38-23f4-43c8-8fee-e41178db2a25" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/3f585cf1-2985-4744-8d2f-b44c2413fb93" /></td>
+</tr>
+</tbody>
+</table>
+<p><strong>IDA-View</strong> (You'll need to press <strong>F5</strong> again to see the magic)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/ac43c89b-cbb6-438b-ab18-b3c05f2193d8" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/338d2c24-1dcf-4c18-bfc7-7b2132c705d5" /></td>
+</tr>
+</tbody>
+</table>
+<p>And there we go! Android is done.</p>
+</div>
+<div class="tabbed-block">
+<p>In the <strong>Strings</strong> sub-window, search for <code>9821191</code>, xref, <strong>F5</strong> to open the <strong>Pseudocode</strong> sub-window and scroll down until you found this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/b985370c-a4ef-477d-8373-7183586a73d6" /></p>
+<p>I. ArcNote (Still wondering what does it do)</p>
+<p>Double-click the highlighted address, <strong>Alt + T</strong> and search <code>264</code>. <strong>Tab</strong> to switch to <strong>IDA-View</strong> and see something like this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Pseudocode</th>
+<th style="text-align: center;">IDA-View</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/d3dda488-9e02-47d4-9b3a-f61ba08e4fa2" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/fc6ae373-60e7-408f-a0c0-1d5e0fafc282" /></td>
+</tr>
+</tbody>
+</table>
+<p>Click on the <code>LDRB</code> opcode, open the Keypatcher and type <code>nop</code>. Do the same thing with <code>CBZ</code>.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/e69f11c8-eec8-48a1-b7c2-c8566ad32403" /></p>
+<p>II. Camera</p>
+<p>Switch to <strong>Pseudocode</strong> view, <strong>Ctrl + T</strong> to search the next value <code>264</code>. <strong>Tab</strong> to switch to <strong>IDA-View</strong> and see something like this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Pseudocode</th>
+<th style="text-align: center;">IDA-View</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/0b1617a1-43da-43f4-ac72-4f92fb027f50" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/2e042762-200c-42a9-a375-60bcb356227c" /></td>
+</tr>
+</tbody>
+</table>
+<p>Click on the first <code>LDRB</code> opcode, open the Keypatcher and type <code>nop</code>. Do the same thing with <code>BEQ</code> opcode.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/33157390-781c-4a7a-ad51-cede534750d3" /></p>
+<p>III. Scenecontrol</p>
+<p>Switch to <strong>Pseudocode</strong> view, <strong>Ctrl + T</strong> to search the next value <code>264</code>. <strong>Tab</strong> to switch to <strong>IDA-View</strong> and see something like this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Pseudocode</th>
+<th style="text-align: center;">IDA-View</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/4b2e7aa5-64eb-4bc9-b1ba-0fa42374d5af" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/457dc1ff-3448-4d88-b07b-38baa21c06b5" /></td>
+</tr>
+</tbody>
+</table>
+<p>Click on the <code>LDRB</code> opcode, open the Keypatcher and type <code>nop</code>. Do the same thing with <code>CBNZ</code> opcode.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/d992f4ab-836d-44a2-9b6e-2a44821a4d94" /></p>
+<p>IV. Arcahv string check</p>
+<p>lowiro removed this in iOS and Android arm64 so let's ignore.</p>
+<p>V. Green arc</p>
+<p>Switch to <strong>Pseudocode</strong> view, scroll down until you found this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/9917fb8d-ca9b-4479-9202-e4b53d9c3493" /></p>
+<p>Double-click the highlighted address, switch to <strong>IDA-View</strong>. Click on <code>LDRB</code> opcode that have <code>#0x108</code>, use the Keypatcher and <code>nop</code> it. After that, modify the first <code>CMP</code> opcode to <code>#32</code>. After that, patch <code>CINC W1, W8, NE</code> opcode to <code>CINC W1, W1, NE</code> opcode.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/482d8606-4bb7-4110-ab07-4a70b6923993" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/2208c0a6-a42a-4648-b1a8-152d94845ea6" /></td>
+</tr>
+</tbody>
+</table>
+<p>VI. The Switch (this will be used for others as well)</p>
+<p>I literally don't know why lowiro do this but ok</p>
+<p>In the <strong>Strings</strong> sub-window, press <strong>ALT + T</strong> and search for <code>gameend</code>, double-click, xref and scroll up until you found this:</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/7864e697-2464-4185-85a7-d673be5f48af" /></p>
+<p>Double-click the highlighted address, switch to <strong>Hex View</strong>, <strong>F2</strong> to edit and type <code>20 00 80 52</code> (no spacing) then save it. It should be like this after editing:</p>
+<p><strong>Hex View</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/eba00ee0-d1f6-4ee2-8611-b726b436b881" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/d3f2e7f1-045f-4145-b805-20a69835fd2c" /></td>
+</tr>
+</tbody>
+</table>
+<p><strong>IDA-View</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/c529bbdf-1298-4ae5-91ac-b77ab61ebfbd" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/7a59ca02-09a1-411c-aef3-8be4a627b246" /></td>
+</tr>
+</tbody>
+</table>
+<p>VII. Remove Skynote and Arc restrictions (over y2.1)</p>
+<p>Note: Not recommended having these 2 modded because it'll mess up a part in Singularity VVVIP. See here: https://youtu.be/3SBjWP2JEXc?t=93.</p>
+<p>a. Skynote</p>
+<p>Xref <a href="#the-switch-this-will-be-used-for-others-as-well-1">The Switch</a>, switch to <strong>IDA-View</strong> and scroll up a bit until you found this: </p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/3a5663d3-013f-4d0e-b45f-3a0ac1ea70c3" /></p>
+<p>Use the Keypatcher to <code>nop</code> for the <code>FMOV</code> and <code>TBZ W20</code> opcode.</p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/ace5bcea-9840-4218-b45e-4b9dd2f0bb81" /></p>
+<p>b. Arc</p>
+<p>In the <strong>Pseudocode</strong> view, scroll up, xref <a href="#Skynote-1">The Skynote</a> first address, scroll up again, xref the first address, switch to <strong>IDA-View</strong>, AND scroll up until you see this: </p>
+<p><img alt="image" src="https://gist.github.com/assets/89432931/77e6a6e9-c680-4c24-96a7-e04ce5a6d33f" /></p>
+<p>Click the <code>ADRP</code>, switch to <strong>Hex View</strong>, click the second hex byte value, press <strong>F2</strong> to edit change a digit then save it (it varies in each version of the game). It should be like this after editing:</p>
+<p><strong>Hex View</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/2ef5d319-9a46-4ba8-bf52-fdf9079a53e4" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/ea5bdfdc-d94e-4be7-a48b-27cf42064c17" /></td>
+</tr>
+</tbody>
+</table>
+<p><strong>IDA-View</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/bbb5c053-c61f-4341-9a00-565d95ce0161" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/24fe57e0-4dcc-40e7-935f-0ebd04fb3e30" /></td>
+</tr>
+</tbody>
+</table>
+<p>And there we go! iOS is done.</p>
+</div>
+</div>
 </div>
 <h2 id="removing-world-mode-restrictions">Removing world mode restrictions</h2>
 <div class="admonition tip">
 <p class="admonition-title">Info</p>
-<p>Unlocks all world mode charts.</p>
+<p>Unlocks all world mode charts (even byds as well i think because it counts as a world song but it just the visual, you'll need to mod the other 3 to make it playable offline).</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="android_3" name="__tabbed_4" type="radio" /><input id="ios_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="android_3">Android</label><label for="ios_3">IOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>In the <strong>Strings</strong> sub-window, search for <code>this song is</code>, xref the second one, <strong>F5</strong> to open the   <strong>Pseudocode</strong> sub-window and scroll up until you found this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Xref</th>
+<th style="text-align: center;">Pseudocode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/ba857ad8-e9c1-4163-996c-b777d9b6e145" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/079850a9-3d56-4906-94ae-ccfe4fb5efc0" /></td>
+</tr>
+</tbody>
+</table>
+<p>Double-click to go to the highlighted address, click the first line in <strong>Pseudocode</strong> sub-window, press <strong>Tab</strong> to move to <strong>IDA-View</strong>, switch to <strong>Hex View</strong>, press <strong>F2</strong> and type <code>01 20 70 47</code> (no spacing) (which is MOV R0, #1 and BX LR).</p>
+<p><strong>IDA-View</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/7e2eedf7-ba5e-465a-b0f1-e03c6961c433" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/8f1274b2-600d-4bc8-a400-996c0b56e190" /></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Hex View</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/e7ca2213-2f01-44ab-b028-7b6b24c77e84" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/dbf36af9-eb54-45d0-a94f-bc49172a8144" /></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<p>In the <strong>Strings</strong> sub-window, search for <code>this song is</code>, xref the first one, <strong>F5</strong> to open the <strong>Pseudocode</strong> sub-window and scroll up until you found this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Xref</th>
+<th style="text-align: center;">Pseudocode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/8ecbf6f2-9feb-4a55-a226-1380e9506694" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/260ccebd-2179-4735-881d-a95912e05685" /></td>
+</tr>
+</tbody>
+</table>
+<p>Double-click to go to the highlighted address, click the first line in <strong>Pseudocode</strong> sub-window, press <strong>Tab</strong> to move to <strong>IDA-View</strong>, switch to <strong>Hex View</strong>, press <strong>F2</strong> and type <code>20 00 80 52 C0 03 5F D6</code> (no spacing) (which is MOV W0, #1 and RET).</p>
+<p><strong>IDA-View</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/8e88fa24-0cdf-4793-8808-5a2c5eba6f2b" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/fa1c0cfe-2ffa-454b-bd54-17feba6a02af" /></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Hex View</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Before</th>
+<th style="text-align: center;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/f5c1e7d8-94c5-4c37-959a-8dc5647be062" /></td>
+<td style="text-align: center;"><img alt="image" src="https://gist.github.com/assets/89432931/c425dc4a-06e7-47bf-850c-737e97ca06e2" /></td>
+</tr>
+</tbody>
+</table>
+<p>Once you're done, press <strong>F2</strong> again to save it.</p>
+</div>
+</div>
+</div>
+<div class="admonition success">
+<p class="admonition-title">All done!</p>
+<p>And there you have it. Good luck modding. Post-5.4.0 will be written sooner or later.</p>
 </div>
 
 
