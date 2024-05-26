@@ -1,9 +1,6 @@
 # Obtaining Arcaea APK/IPA
 
-!!! danger "Work in progress"
-    This page is being actively worked on. Contributions of any kind are much appreciated.
-
-Before proceeding with modding Arcaea, its APK/IPA file must be dumped from your device. Depending on your operating system, dumping procedure will be different.
+Before proceeding with modding Arcaea, its APK/IPA file must be dumped from your device. Depending on your operating system, the procedure will be different.
 
 ## iOS
 
@@ -30,5 +27,29 @@ Open **DumpDecrypter**, switch to the **Settings** tab and enable all available 
 
 ## Android
 
-!!! danger "Work in progress"
-    This section is being worked on.
+!!! tip "Info"
+    Requires ADB (Android Debug Bridge) and appropriate ADB/USB drivers for your phone (not required on Linux, Windows 10 or newer will most likely do this automatically for you) installed which is included in the Android SDK by default. If you do not want to install the entire platform SDK, consider installing [this](https://github.com/K3V1991/ADB-and-FastbootPlusPlus/releases).
+
+### Dumping split APKs
+
+Open Command Prompt or your favorite Terminal Emulator, then with your phone connected to your PC via USB, run `adb shell pm path moe.low.arc` to fetch all paths to Arcaea APKs, it should look like this:
+
+![image](https://gist.github.com/assets/74685931/aa2662ea-709b-466a-ac59-6ec8b8d10c9e)
+
+This is called [split APKs](https://developer.android.com/studio/build/configure-apk-splits), a new simplified APK format that split an APK file to multiple smaller APKs (e.g. one APK containing the base data, one containing the actual code, one containing assets and so on...). Normally, this format will help for more efficient application installation from Google Play due to not requiring to download a huge APK file; however, this will make it hard to mod Arcaea, so we must merge them into a normal APK file before proceeding.
+
+Copy the path of *each* APK files, and run `adb pull <path to apk>`. Repeat this for the other APKs too.
+
+### Merging the APKs
+
+!!! tip "Info"
+    A tool called [SAP](https://drive.google.com/file/d/1UnKr1SnX14RL_e9IpcpQhA6AnYwB0fjL/view) (Split APKs Package) will be used for this purpose. You may also be able to use any other similar functioning tools as well.
+
+Download and open SAP, you will be presented with an interface like this:
+
+![image](https://gist.github.com/assets/74685931/8834735c-08b4-4823-9b9b-027663fd4a19)
+
+Place all of your split APKs into a folder, then click onto **Directory** and select that folder. If however you have a XAPK file instead, click on **Archive** and select that XAPK file.
+
+Make sure to tick the **Sign** checkbox, then click **Start** and wait as this may take a while.
+

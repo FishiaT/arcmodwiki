@@ -10,7 +10,7 @@
 
     * Overwriting its hex address using a hex editor. This will requires a converter that allows converting ARM instruction to hex address and vice versa. As with NOPing an instruction, overwrite its hex address with `1F 20 03 D5` for ARM64 or `00 F0 20 E3` for ARM32. This is the recommended method.
 
-    * Using [Keypatch](https://github.com/keystone-engine/keypatch). This is the simplest method to directly modifying an instruction without having to touch the hex editor. Unfortunately, Keypath has not been updated to IDA Pro 8.x (yet), and even with older versions of IDA Pro setting it up and get it to work can be quite a pain.
+    * Using [Keypatch](https://github.com/keystone-engine/keypatch). This is the simplest method to directly modifying an instruction without having to touch the hex editor. Unfortunately, Keypatch has not been updated to IDA Pro 8.x (yet), and even with older versions of IDA Pro setting it up and get it to work can be quite a pain.
 
 ## Removing hash verification
 !!! tip "Info"

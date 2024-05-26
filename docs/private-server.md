@@ -47,7 +47,7 @@ Download the appropriate patch for your version:
 === "Android"
 
     ??? note "5.6.3"
-        Being updated, please come back later!
+        [Download](https://github.com/FishiaT/arcmodwiki/releases/download/patches/android_5.6.3.xdelta){ .md-button }
 
 Now open DeltaPatcher, you will be presented with an interface like this:
 
@@ -70,55 +70,97 @@ Open the appropriate executable file for your operating system, ***and wait for 
 
 After the initial auto-analysis, Press **SHIFT + F12** and wait for the string list to be generated (again, this may take a while.)
 
-=== "Pre 5.6.3/iOS"
+=== "iOS & Pre-5.6.3 Android"
 
-In the **Strings** sub-window, press **ALT + T** and search for `cookieFiIe.txt` until you found exactly this.
+    In the **Strings** sub-window, press **ALT + T** and search for `cookieFiIe.txt` until you found exactly this.
 
-![image](https://gist.github.com/assets/74685931/3203879e-367b-4bdc-a834-d24db72442a6)
+    ![image](https://gist.github.com/assets/74685931/3203879e-367b-4bdc-a834-d24db72442a6)
 
-Double-click it, and while highlighting this part, press **X** to perform xref (cross-reference.)
+    Double-click it, and while highlighting this part, press **X** to perform xref (cross-reference.)
 
-![image](https://gist.github.com/assets/74685931/505ee7d4-6734-4391-92d3-90dd6aaae1ef)
+    ![image](https://gist.github.com/assets/74685931/505ee7d4-6734-4391-92d3-90dd6aaae1ef)
 
-Choose the **second** xref (for Android) or the only present xref (for iOS) and press **ENTER**.
+    Choose the **second** xref (for Android) or the only present xref (for iOS) and press **ENTER**.
 
-![image](https://gist.github.com/assets/74685931/7ac1e9fd-74d3-4015-975b-8c6a036b6ff5)
+    ![image](https://gist.github.com/assets/74685931/7ac1e9fd-74d3-4015-975b-8c6a036b6ff5)
 
-Press **F5** or **View > Open subviews > Generate pseudocode** (this will not work if IDA is still analyzing the binary), wait for the decompilation to complete (may take a while) until you see something like this (may differ depending on version used but the general structure should be the same):
+    Press **F5** or **View > Open subviews > Generate pseudocode** (this will not work if IDA is still analyzing the binary), wait for the decompilation to complete (may take a while) until you see something like this (may differ depending on version used but the general structure should be the same):
 
-![image](https://gist.github.com/assets/74685931/61a77285-a854-4a7b-8575-5c4cacc781a1)
+    ![image](https://gist.github.com/assets/74685931/61a77285-a854-4a7b-8575-5c4cacc781a1)
 
-Scroll to bottom until you see this part, then highlight it by clicking onto it (names may be different but the structure should remain the same.)
+    Scroll to bottom until you see this part, then highlight it by clicking onto it (names may be different but the structure should remain the same.)
 
-![image](https://gist.github.com/assets/74685931/e048adf0-7a08-4b33-a6f7-9995cfd25f3f)
+    ![image](https://gist.github.com/assets/74685931/e048adf0-7a08-4b33-a6f7-9995cfd25f3f)
 
-Now switch to the **Hex View** sub-window, make sure it synchronizes with the **Pseudo Code** sub-window, and NOP it.
+    Now switch to the **Hex View** sub-window, make sure it synchronizes with the **Pseudo Code** sub-window, and NOP it.
 
-![image](https://gist.github.com/assets/74685931/1f44b264-ae04-49e5-9a7a-a55bda1ed437)
+    ![image](https://gist.github.com/assets/74685931/1f44b264-ae04-49e5-9a7a-a55bda1ed437)
 
-After that, make sure the entire code line is absent when re-decompiled.
+    After that, make sure the entire code line is absent when re-decompiled.
 
-Now return to the **Strings** sub-window, and this time search for `vtvtvt`.
+    Now return to the **Strings** sub-window, and this time search for `vtvtvt`.
 
-xref it, and choose the first xref entry for iOS, or the one with `@PAGE` for Android.
+    xref it, and choose the first xref entry for iOS, or the one with `@PAGE` for Android.
 
-| Android | iOS |
-| ------- | --- |
-| ![image](https://gist.github.com/assets/74685931/65950e4f-c004-4b1d-a582-9e8a01a5ec03) | ![image](https://gist.github.com/assets/74685931/f5ce6a72-8307-42e6-9174-e4371b26680b) |
+    | Android | iOS |
+    | ------- | --- |
+    | ![image](https://gist.github.com/assets/74685931/65950e4f-c004-4b1d-a582-9e8a01a5ec03) | ![image](https://gist.github.com/assets/74685931/f5ce6a72-8307-42e6-9174-e4371b26680b) |
 
-Decompile it again, and scroll down a little bit until you see this part:
+    Decompile it again, and scroll down a little bit until you see this part:
 
-![image](https://gist.github.com/assets/74685931/8857dcd5-565c-4888-b9eb-3e248ae0fa5b)
+    ![image](https://gist.github.com/assets/74685931/8857dcd5-565c-4888-b9eb-3e248ae0fa5b)
 
-Highlight this part, and NOP it like above:
+    Highlight this part, and NOP it like above:
 
-![image](https://gist.github.com/assets/74685931/73ad185a-67e5-4cc2-b439-d122289c24d7)
+    ![image](https://gist.github.com/assets/74685931/73ad185a-67e5-4cc2-b439-d122289c24d7)
 
-=== "5.6.3 or newer (Android only)
+=== "Android 5.6.3 or newer"
 
-*Being updated, please return later.*
+    !!! example "Note"
+        This section is a simplified and slightly adjusted version of [this guide](https://aliyafarhana.github.io/arcmodtutorialwiki/aarm64/#bypass-ssl-verification-and-ssl-pinning).
 
-After patching the executable, save the file and recompress the APK/IPA file. For Android, **you must resign the APK file before installing it onto your device.** You may now sideload it onto your device using ADB, AppSync Unified (*not recommended due to potential crashes and issues.*), AltStore (& friends) or TrollStore (*recommended for supported devices.*)
+    Switch to the **IDA View** sub-window, and press **Alt + I** or **Search > Immediate value...**, a window like this will show up, enter `408`, tick **Find all occurrences** and then search.
+
+    ![image](https://gist.github.com/assets/74685931/a0fba2b1-7ada-41ea-85bf-d14baa034de7)
+
+    After that, you should see something like this.
+
+    ![image](https://gist.github.com/assets/74685931/89995350-f418-438f-ba2e-a367d9abb85f)
+
+    Click **Instruction** to sort it, then scroll up until you found this:
+
+    ![image](https://gist.github.com/assets/74685931/940aada4-0f77-48ff-b378-c114f6e0d0be)
+
+    Double-click onto it, then press **TAB**, **F5** or **View > Open subviews > Generate pseudo-code** and you should see something like this.
+
+    ![image](https://gist.github.com/assets/74685931/d3e003d8-9b9a-4704-aae4-503104474f36)
+
+    Click onto the function name and xref it, choose the only entry in the list.
+
+    ![image](https://gist.github.com/assets/74685931/ff139381-0709-4a9f-afd3-6b14ba66965f)
+
+    You will be brought to another function, this time switch back to **IDA View** and enable synchronization by **Right click > Synchronize with > Pseudocode-..**. After that you should now see something like this, NOP the highlighted part:
+
+    ![image](https://gist.github.com/assets/74685931/46198fef-0491-42d6-be44-828a7e9b267b)
+
+    Return to the **IDA View** sub-window, and press **Alt + I** or **Search > Immediate value...**, enter `488`, tick **Find all occurrences** and then search. You will see something like this:
+
+    ![image](https://gist.github.com/assets/74685931/ac21e7f3-825f-4c32-891e-89f068b4790a)
+
+    Sort it, then scroll up until you found something like this:
+
+    ![image](https://gist.github.com/assets/74685931/612d95a6-7a91-4fa5-ac40-007ad25e7e68)
+
+    Double-click onto it, and switch to pseudo-code view and it should look like this:
+
+    ![image](https://gist.github.com/assets/74685931/e5dfa858-23a3-4776-9882-290b7e5edee8)
+
+    Continue repeating the same steps as above: click onto the function name, xref it, switch to **IDA View** and nop the `BL` instruction.
+
+    ![image](https://gist.github.com/assets/74685931/b3828be3-7b20-4beb-a743-a3389bf52690)
+
+
+After patching the executable, save the file and recompress the APK/IPA file. For Android, **you must re-sign the APK file before installing it onto your device.** You may now transfer and sideload it onto your device using your favorite method.
 
 ### Setting up private server
 For this section, you will need:
@@ -161,16 +203,16 @@ Close that window, and go to **Help > Local IP Addresses**. It will look somethi
 
 ![image](https://gist.github.com/assets/74685931/a6c2a2a2-5981-45ba-9a4d-a419d6ec9d3a)
 
-Your local IP address will most likely be the first item in the list (in this case, since I am using Ethernet connection, it will be the first one.) Copy that IP address or memorize it. 
+Now, ignore everything with "Virtual" in it (as those are for Hyper-V, Wi-Fi hotspots or ad-hoc networks, all of which has nothing to do with what we are doing). Check what type of internet connection are you using (either Ethernet or Wi-Fi) and then pick the appropriate adapter. In this case, my computer is connected through Ethernet connection, and it has a Broadcom adapter, I will pick the first one.
 
 !!! tip "About local IP addresses"
-    This is your ***local*** IP address, meaning it can only be accessed by devices that are connected to the same network.
+    This IP address is **not** a public IP address, and therefore cannot be accessed from other networks.
 
 You may now close that window and press **CTRL + ALT + M** or **Tools > Map Remote...**, tick **Enable Map Remote** and press **Add**. Tweak it like this:
 
 ![image](https://gist.github.com/assets/74685931/ab49da64-b284-462e-a549-3836e1eaa8a3)
 
-In the **Map To** section, the **Host** textbox needs to be your local IP address that you got from above, and the **Port** textbox is a 4 digit number that your server will be running on. Pick any numbers you want **except** for ports like 8888 or 8889 and memorize it along with your local IP address. Press **OK**. The map remote interface should look like this in the end:
+In the **Map To** section, the **Host** textbox needs to be your local IP address that you got from above, and the **Port** textbox is a 4 digit number that your server will be running on. Pick any numbers you want **except** for common ports like 8888 and the two ports that you have put in when setting up the prory above (both HTTP and SOCKS) and memorize it along with your local IP address. Press **OK**. The map remote interface should look like this in the end:
 
 ![image](https://gist.github.com/assets/74685931/10135270-6146-4865-9e6c-29e8d87cd690)
 
@@ -195,11 +237,11 @@ For **GAME_API_PREFIX**, this will differ depending on your Arcaea version. Refe
 
 | Version | Prefix |
 | ------- | ------ |
-| 5.5.6 -> 5.6.1 | `/hanami/29` |
+| 5.5.6 -> 5.6.3 | `/hanami/29` |
 
 ![image](https://gist.github.com/assets/74685931/c8cbab7e-e682-4747-96f2-c840ed4156ed)
 
-For **ALLOW_APPVERSION**, remove everything inside. You may add a version to the list (e.g. `5.6.1) if you want to restrict the server to (a) specific server.
+For **ALLOW_APPVERSION**, remove everything inside. You may add a version to the list (e.g. `5.6.1`) if you want to restrict the server to (a) specific server.
 
 ![image](https://gist.github.com/assets/74685931/20cc5697-7a52-4aac-8ead-3090e6cc08ad)
 
@@ -231,25 +273,46 @@ Run the `database_initialize.py` file to generate the database. Make sure you ha
 * Put the content bundle you have obtained above into the `bundle` folder. The actual bundle must have the `.cb` extension and the meta file must have the `.json` extension. Both must have the same filename (e.g. `5.6.0`).
 
 !!! note
-    The content bundle in the server must be the same as the one existing in your Arcaea client (the metadata and content MUST match) as otherwise you will encounter issues when trying to login. If you change the content bundle in the server, the one on the client should be redownloaded.
+    The content bundle in the server must be the same as the one existing in your Arcaea client (the metadata and content MUST match) as otherwise you will encounter issues when trying to login. If you change the content bundle in the server, the one on the client must be re-downloaded.
 
     To avoid issues, use the content bundle that you have obtained [earlier](#obtaining-content-bundle).
 
-* Put any songs you have into the `songs` folder. A song is a folder containing multiple .aff files (every difficulties of the song), base.jpg files (the jacket art), the song itself, the PV video for Terminal songs, and any additional files for that song.
+* Put all charts into the `songs` folder. Each chart is a folder containing at least 3 .aff files (PST/PRS/FTR difficulties, some may also contain additional .aff files for BYD/ETR difficulties), the `base.ogg` file (the song itself), PV video (separated into video and audio files respectively **EXCEPT** for Arghena which only contains the video in two resolutions 720p and 1080p, one will be downloaded by Arcaea client depending on the graphic setting) and all additional files required by it.
 
-* Make any adjustments you want to make.
+!!! note
+    When attempting to play a song that is not in the default Arcaea pack, the game will prompt the player to download it from the server. If the chart folder itself or any of the required files are missing, the download will fail. All required files, song, and difficulties are defined in the `songlist` file bundled in the content bundle. For more details please refer to the respective [Custom Charts & Packs](custom-charts-packs.md#meta-files) page.
+
+* Make any adjustments you want to make (e.g. adding World Mode maps, adding courses, etc...)
 
 At this point, the server software is now ready.
 
 #### On device setup
 !!! note
-    Your phone and your computer (the one that runs the server) MUST be connected to the same network for the server to work.
+    Your phone and your computer (the one that runs the server) MUST be connected to the same network for the server to work. If you want to publicize your server, port forwarding or a VPS/cloud serve is required. Setting this up is (at the moment) out of scope for this guide.
 
 === "iOS"
 
-    Open the **Settings** app, go to **Wi-Fi** settings, press the **!** icon on the connected network, scroll down until you found the **HTTP Proxy** settings. In the **Configure Proxy** settings, select **Manual** and fill in the **Server** field which is your local IP address and the **Port** field which is 8888. Now press **Save** and (optionally) turn off and reconnect to your Wi-Fi network.
+    Pick one of the methods you want to use.
 
-    Now on your computer, return to Charles and go to **Help > SSL Proxying > Install Charles Root Certificate on a Mobile Device or Remote Browser**. A window like this will show up:
+    === "Using Shadowrocket"
+
+        !!! tip "Info"
+            This is the recommended method; however, it involves using a paid app. Other similarly functioning proxy apps may also work with some configuration. If you do not want to install anything or simply do not wish to use a paid app, considering checking out the **Wi-Fi Proxy Settings** method instead.
+
+        Firstly, install [Shadowrocket](https://apps.apple.com/us/app/shadowrocket/id932747118) onto your device.
+
+        Now open it, and press on the **+** icon on the upper right of the interface. Press **Type** and select **Socks5** (without the **TLS** part). In the **Address** field, enter your local IP address. In the **Port** field, enter 8889 (adjust if you have set a different port during [proxy setup](#proxy-setup), specifically, the port for the SOCKS server), press **Save** while leaving everything else as-is. Press **Global Routing** and change it to **Proxy**, return to the main interface and enable the proxy. iOS will prompt you to allow VPN connection, press **Allow** and authenticate if needed. The `VPN` icon will show up on your status bar, indicating that you are now connected to the proxy. Press **Connectivity Test** to check if the connection is working properly.
+
+    === "Wi-Fi Proxy Settings"
+
+        !!! tip "Info"
+            The alternative method. Requires re-configuration for new Wi-Fi networks.
+
+        Open the **Settings** app, go to **Wi-Fi** settings, press the **!** icon on the connected network, scroll down until you found the **HTTP Proxy** settings. In the **Configure Proxy** settings, select **Manual** and fill in the **Server** field which is your local IP address and the **Port** field which is 8888. Now press **Save** and (optionally) turn off and reconnect to your Wi-Fi network.
+
+    Your device should now be connected to the proxy.
+
+    On your computer, return to Charles and go to **Help > SSL Proxying > Install Charles Root Certificate on a Mobile Device or Remote Browser**. A window like this will show up:
 
     ![image](https://gist.github.com/assets/74685931/c9f85e1c-9ef6-4c22-9113-79551ab73fed)
 
@@ -257,12 +320,9 @@ At this point, the server software is now ready.
 
 === "Android"
 
-    !!! warning
-        From limited testing, Android is finicky when it comes to maintaining connection to proxy server. Things may not work correctly or even at all. If you have a way to fix this, feel free to contribute!
+    Go back to Charles and go to **Help > SSL Proxying > Save Charles Root Certificate...** Save the .pem file somewhere. Rename the .pem extension to .crt. Now transfer this file to your Android device and install it to the **VPN & Apps** category.
 
-    Go back to Charles and go to **Help > SSL Proxying > Save Charles Root Certificate...** Save the .pem file somewhere. Rename the .pem extension to .crt. Now transfer this file to your Android device and install it to both categories.
-
-    On Android, you will need to rely on a proxifier app such as [VProxid](https://play.google.com/store/apps/details?id=com.lazybean.vpnperapp) or [RProxid](https://play.google.com/store/apps/details?id=com.lazybean.socksperapp) (requires root, recommended). You need to connect through the SOCKS5 proxy server.
+    On Android, you will need to rely on a proxifier app such as [VProxid](https://play.google.com/store/apps/details?id=com.lazybean.vpnperapp) or [RProxid](https://play.google.com/store/apps/details?id=com.lazybean.socksperapp) (requires root, recommended).
 
     After installing either of the proxifier app, open it and press the **+** icon, for **Server IP**, enter your local IP address; for **Server Port**, enter 8889. Scroll down a little bit and press **Click to select application(s)** then tick Arcaea. Now return and press the play button to start the VPN. Wait until it shows all good.
 
@@ -298,3 +358,7 @@ At this point, you are basically done! Enjoy your new server!
 ***Nothing works, even logging in.***
 
 -> Check if the `GAME_API_PREFIX` variable in the `config.py` file is set correctly. If that did not work, make sure you have set up the proxy correctly (refer to the [Proxy setup](#proxy-setup) and [On device proxy setup](#on-device-setup) section.)
+
+***Potential system not working.***
+
+-> In order to make potential work, you will need to add the charts data onto the server database with the appropriate difficulty constant. Refer to the respective [Custom Charts & Packs](custom-charts-packs.md#server-database) page for more info.
